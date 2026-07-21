@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// Draft rules — review before going live. Only covers what's built so far
+// (the homepage Call Back Request form). Rules for `articles` and
+// `memberApplications` will be added when those pages are built.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public can submit a call-back / contact request, but never read
+    // existing submissions (no admin dashboard in Phase 1 — the chamber
+    // follows up by checking the Firebase console directly).
+    match /contactRequests/{requestId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}

@@ -1,6 +1,10 @@
 # Tzaneen Chamber of Commerce — Website Plan (Phase 1)
 
-Status: DRAFT — awaiting approval. No implementation until this is signed off.
+Status: Landing page (Home) built as a first slice, per your instruction to
+do the landing page first. Other pages below are still just planned, not
+built — nav links to them are present but inert (greyed out) until each one
+is implemented. See "Build log" at the bottom for what actually exists in
+the repo right now.
 
 ## 0. Assumptions & open questions (please confirm/answer)
 
@@ -146,4 +150,30 @@ lib/
 
 ---
 
-**Waiting for your go-ahead before writing any code.** Please confirm or correct the open questions in section 0, then I'll proceed with scaffolding.
+## 6. Build log — Home / landing page (first slice)
+
+Stack scaffolded: Next.js 16 (App Router, TypeScript, Tailwind v4), Firebase (Firestore client SDK only, no auth imported anywhere).
+
+What's live in `src/`:
+- `app/layout.tsx` — root layout with sticky Header and Footer on every page.
+- `app/page.tsx` — the Home page: hero/awards banner, tagline + contact strip, Call Back Request form, "Our Members" placeholder grid.
+- `components/layout/Header.tsx` — nav driven by `lib/nav.ts`; only "Home" is a real link right now, the rest (About Us, Articles, Certificate of Origin, Awards, New Applications, Contact Us) render greyed-out and inert until those pages are built — adding a page later is just flipping its `href` from `null` to a route, no header redesign needed. Mobile hamburger menu included.
+- `components/layout/Footer.tsx` — required "Powered by GLS Technologies" credit (links to gls-technologies.co.za), real contact info (phone/email/address/hours from the old site), social platform names listed but unlinked (no profile URLs yet).
+- `components/home/CallBackRequestForm.tsx` — Name + Phone, writes to Firestore `contactRequests` with `source: "callback_widget"`, client-side validation, success/error states.
+- `lib/firebase.ts`, `lib/firestore/contactRequests.ts` — Firestore client init and the write helper. Reads config from `NEXT_PUBLIC_FIREBASE_*` env vars (see `.env.local.example`) — **the form cannot actually submit until you create the Firebase project and I have real config values**.
+- `firestore.rules` — draft rule allowing public `create` (not read/update/delete) on `contactRequests`. Not yet deployed anywhere — needs a real Firebase project first.
+- `components/ui/ImagePlaceholder.tsx` — visible flagged placeholder (dashed border + label), used for the hero image and the 4 member-logo slots. No stock or AI imagery used anywhere.
+
+Decisions made while building (flagging, not assuming silently):
+- **Colors**: approximated brand green/gold from the screenshots (exact hex values not confirmed) — see `src/app/globals.css`. Update if you have real brand values.
+- **Logo**: placeholder "TCC" mark in the header — real logo file still needed.
+- **"Nominate Now!" button**: points at `mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination` since the real nomination destination/flow isn't known. Easy one-line change once you tell me where it should actually go.
+- **"Our Members" carousel**: simplified to a static 4-slot placeholder grid (no real member logos available) rather than building carousel/slider behavior for content that doesn't exist yet.
+- **MyGuideTZN promo block**: left out of the landing page, per the earlier flag that it looked out of scope (a separate directory product, not core chamber content). Say if you want it included.
+- Verified with `next build` (production build passes) and `eslint` (clean), plus manual mobile (390px) and desktop (1280px) screenshots — layout holds up, mobile menu opens/closes correctly.
+
+Not yet done: About Us, Articles, Certificate of Origin, Awards, New Applications, Contact Us pages; Firebase project creation/config; real logo, photos, member list, social URLs, eCOO SmartAdmin link, and the rest of the Membership Application form fields.
+
+---
+
+**Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.
