@@ -1,8 +1,6 @@
 const socialLinks = [
   { label: "Facebook", href: null },
   { label: "Instagram", href: null },
-  { label: "Twitter / X", href: null },
-  { label: "YouTube", href: null },
   { label: "LinkedIn", href: null },
 ];
 

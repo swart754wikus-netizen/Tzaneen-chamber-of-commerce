@@ -165,14 +165,25 @@ What's live in `src/`:
 - `components/ui/ImagePlaceholder.tsx` — visible flagged placeholder (dashed border + label), used for the hero image and the 4 member-logo slots. No stock or AI imagery used anywhere.
 
 Decisions made while building (flagging, not assuming silently):
-- **Colors/look**: deliberately moved away from the old site's plain forest-green + gold — that read as too close a copy rather than a "refreshed design." New palette is deep teal-green (`--color-brand-primary`) + warm terracotta accent (`--color-brand-accent`) on a soft cream background (`--color-brand-cream`), see `src/app/globals.css`. Visual language also changed: rounded cards, pill buttons, a split hero with a floating image card, and a quote block with an accent border, replacing the old site's flat colored bands. Not tied to an official brand guide — flag if you want different colors.
 - **Logo**: placeholder "TCC" mark in the header — real logo file still needed.
 - **"Nominate Now!" button**: points at `mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination` since the real nomination destination/flow isn't known. Easy one-line change once you tell me where it should actually go.
 - **"Our Members" carousel**: simplified to a static 4-slot placeholder grid (no real member logos available) rather than building carousel/slider behavior for content that doesn't exist yet.
 - **MyGuideTZN promo block**: left out of the landing page, per the earlier flag that it looked out of scope (a separate directory product, not core chamber content). Say if you want it included.
 - Verified with `next build` (production build passes) and `eslint` (clean), plus manual mobile (390px) and desktop (1280px) screenshots — layout holds up, mobile menu opens/closes correctly.
 
-Not yet done: About Us, Articles, Certificate of Origin, Awards, New Applications, Contact Us pages; Firebase project creation/config; real logo, photos, member list, social URLs, eCOO SmartAdmin link, and the rest of the Membership Application form fields.
+### Redesign #2 — matched to a reference screenshot
+
+You sent a reference image of a much larger chamber-of-commerce-style site (business directory, events calendar, investment/tourism sections, tenders/loadshedding feeds, newsletter). You confirmed you only wanted the **visual style**, not those extra features, and that the stats shown in that image (412 members, 3 250+ jobs, R1.8B+, 18 events) were **not real** — just a style reference.
+
+Applied from that reference:
+- **New palette**: near-black forest green (`--color-brand-primary` `#0e2116`) + bright lime accent (`--color-brand-accent` `#6fbe44`), white nav bar, off-white sections — replacing the teal/terracotta pass from earlier. See `src/app/globals.css`.
+- **Header**: added a slim dark utility bar above the white main nav (contact info + social + a "Member Login" slot) — the Member Login slot doubles as the Phase 2 hook we'd already planned, shown inert like the other unbuilt nav items.
+- **Hero**: full-bleed background photo (real photo you supplied — an aerial view of the Tzaneen area — saved at `public/images/hero-tzaneen.jpg`), dark gradient overlay for legibility, script-style "Welcome to" eyebrow line, two CTA buttons (solid "Nominate Now" + outline "Request a Call Back" that scrolls down to the call-back form).
+- **Stat bar**: dark card row overlapping the hero's bottom edge (years-serving real/calculated, member count and businesses-represented still flagged `[NEEDS CONTENT]` — not invented).
+- Fixed the COO nav label along the way — it should just say **"COO"** (that's the literal label on the old site, per `content/old-site-content.md`), not "Certificate of Origin" as I'd first written it.
+- Not built (per your answer): business directory/search, events calendar, investment/tourism landing sections, member benefits page, tenders/municipal/loadshedding/road-report feeds, newsletter signup. Flag if you want any of those actually added later — they're real scope additions, not styling.
+
+Not yet done: About Us, Articles, Certificate of Origin, Awards, New Applications, Contact Us pages; Firebase project creation/config; real logo, member list, social URLs, eCOO SmartAdmin link, and the rest of the Membership Application form fields.
 
 ---
 

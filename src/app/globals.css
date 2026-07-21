@@ -1,20 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbf7f0;
-  --foreground: #1f2937;
+  --background: #f7f8f5;
+  --foreground: #16221a;
 
-  /* Refreshed palette — deliberately distinct from the old site's plain
-     forest-green/gold. Deep teal-green + warm terracotta (a nod to
-     Tzaneen's citrus/fruit economy, not literal branding), on a soft
-     cream background. Not tied to an official brand guide — flag if the
-     client has exact values they want instead. */
-  --color-brand-primary: #16423c;
-  --color-brand-primary-dark: #0d2b26;
-  --color-brand-accent: #e9724c;
-  --color-brand-accent-dark: #cf5c38;
-  --color-brand-cream: #fbf7f0;
-  --color-brand-ink: #1f2937;
+  /* Palette matched to the reference image the client sent: near-black
+     forest green + a bright lime accent, white nav, off-white sections.
+     Not tied to an official brand guide — flag if exact values differ. */
+  --color-brand-primary: #0e2116;
+  --color-brand-primary-dark: #081209;
+  --color-brand-accent: #6fbe44;
+  --color-brand-accent-dark: #58a233;
+  --color-brand-cream: #f7f8f5;
+  --color-brand-ink: #16221a;
 }
 
 @theme inline {

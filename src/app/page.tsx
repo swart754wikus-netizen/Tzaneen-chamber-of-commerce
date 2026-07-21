@@ -1,46 +1,94 @@
+import Image from "next/image";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
 import { ImpactSection } from "@/components/home/ImpactSection";
 
+const foundingYear = 1959;
+const yearsServing = new Date().getFullYear() - foundingYear;
+
 export default function Home() {
   return (
     <>
-      {/* Hero / Awards banner. Real photo (award trophy) still needed;
-          "Nominate Now" currently points at a mailto since the real
-          nomination flow/URL isn't known yet — flag if that should go
-          somewhere else. */}
-      <section className="bg-brand-primary text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 md:grid-cols-2 md:py-28">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
-              Annual Award Ceremony &middot; 25 March 2026
-            </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              Tzaneen Chamber of Commerce
-            </h1>
-            <p className="mt-4 max-w-md text-white/80">
-              Advocacy, networking and representation for the businesses
-              driving Greater Tzaneen&apos;s economy forward.
-            </p>
+      {/* Hero. Photo supplied by the client (aerial view of the Tzaneen
+          area) — real photography, not stock/AI. "Nominate Now" currently
+          points at a mailto since the real nomination flow/URL isn't known
+          yet — flag if that should go somewhere else. */}
+      <section className="relative overflow-hidden bg-brand-primary text-white">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-tzaneen.jpg"
+            alt="Aerial view of the Tzaneen area"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark via-brand-primary-dark/75 to-brand-primary-dark/30" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-32 sm:px-6 sm:pt-28 sm:pb-40">
+          <p className="font-serif text-2xl italic text-brand-accent">
+            Welcome to
+          </p>
+          <h1 className="mt-1 text-4xl font-bold tracking-tight sm:text-6xl">
+            Tzaneen Chamber of Commerce
+          </h1>
+          <p className="mt-4 max-w-xl text-lg text-white/85">
+            Advocacy, networking and representation for the businesses
+            driving Greater Tzaneen&apos;s economy forward.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination"
-              className="mt-8 inline-block rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
+              className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
             >
               Nominate Now
             </a>
+            <a
+              href="#call-back"
+              className="rounded-full border-2 border-white px-7 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-brand-primary"
+            >
+              Request a Call Back
+            </a>
           </div>
-
-          <ImagePlaceholder
-            variant="dark"
-            label="[NEEDS PHOTO: awards ceremony / trophy image]"
-            className="aspect-4/3 rounded-3xl shadow-xl md:aspect-square"
-          />
         </div>
       </section>
 
+      {/* Stat bar — overlaps the hero's bottom edge. Years-serving is
+          calculated from the real founding year; the other two are
+          flagged placeholders, not real figures. */}
+      <div className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
+        <div className="grid grid-cols-1 gap-4 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-3 sm:p-8">
+          <div className="text-center sm:border-r sm:border-white/10">
+            <p className="text-3xl font-bold text-white sm:text-4xl">
+              {yearsServing}+
+            </p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
+              Years serving Greater Tzaneen
+            </p>
+          </div>
+          <div className="text-center sm:border-r sm:border-white/10">
+            <p className="text-3xl font-bold text-brand-accent sm:text-4xl">
+              [NEEDS CONTENT]
+            </p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
+              Active members
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl font-bold text-brand-accent sm:text-4xl">
+              [NEEDS CONTENT]
+            </p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
+              Businesses represented
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Tagline + contact strip */}
       <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 pt-20 pb-16 sm:px-6">
           <blockquote className="border-l-4 border-brand-accent pl-6 text-xl leading-relaxed text-brand-ink sm:text-2xl">
             &ldquo;We are a dynamic business association that supports local
             businesses and their role in the economic prosperity of Greater
@@ -65,7 +113,7 @@ export default function Home() {
       <ImpactSection />
 
       {/* Call Back Request */}
-      <section className="bg-brand-cream">
+      <section id="call-back" className="scroll-mt-20 bg-brand-cream">
         <div className="mx-auto max-w-md px-4 pb-20 sm:px-6">
           <div className="rounded-3xl bg-white p-8 shadow-lg shadow-brand-primary/5">
             <CallBackRequestForm />

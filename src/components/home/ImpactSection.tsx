@@ -1,6 +1,3 @@
-const foundingYear = 1959;
-const yearsServing = new Date().getFullYear() - foundingYear;
-
 const goals = [
   "Assist members to utilize business opportunities in a changing environment",
   "Positively influence the business climate for members and the broader business community",
@@ -12,40 +9,9 @@ export function ImpactSection() {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        {/* Stats row — the years-serving figure is calculated from the real
-            founding year (About Us content). The other two are placeholders:
-            no member count, COO volume, or similar figures have been
-            supplied yet — do not treat these as real numbers. */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="rounded-2xl bg-brand-primary/5 p-6 text-center">
-            <p className="text-4xl font-bold text-brand-primary">
-              {yearsServing}+
-            </p>
-            <p className="mt-1 text-sm font-medium text-brand-ink/70">
-              Years serving Greater Tzaneen, since {foundingYear}
-            </p>
-          </div>
-          <div className="rounded-2xl border-2 border-dashed border-brand-accent/40 bg-brand-accent/5 p-6 text-center">
-            <p className="text-4xl font-bold text-brand-accent-dark">
-              [NEEDS CONTENT]
-            </p>
-            <p className="mt-1 text-sm font-medium text-brand-ink/70">
-              Active members — real figure needed
-            </p>
-          </div>
-          <div className="rounded-2xl border-2 border-dashed border-brand-accent/40 bg-brand-accent/5 p-6 text-center">
-            <p className="text-4xl font-bold text-brand-accent-dark">
-              [NEEDS CONTENT]
-            </p>
-            <p className="mt-1 text-sm font-medium text-brand-ink/70">
-              Businesses represented — real figure needed
-            </p>
-          </div>
-        </div>
-
-        {/* Our story — condensed from the real About Us content you sent
+        {/* Condensed from the real About Us content you sent
             (content/old-site-content.md), not invented. */}
-        <div className="mt-16 grid gap-10 md:grid-cols-2">
+        <div className="grid gap-10 md:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
               Six decades of service
