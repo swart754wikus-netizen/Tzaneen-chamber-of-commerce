@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
 import { ImpactSection } from "@/components/home/ImpactSection";
+import { QuickLinks } from "@/components/home/QuickLinks";
 
 const foundingYear = 1959;
 const yearsServing = new Date().getFullYear() - foundingYear;
@@ -10,9 +11,9 @@ export default function Home() {
   return (
     <>
       {/* Hero. Photo supplied by the client (aerial view of the Tzaneen
-          area) — real photography, not stock/AI. "Nominate Now" currently
-          points at a mailto since the real nomination flow/URL isn't known
-          yet — flag if that should go somewhere else. */}
+          area) — real photography, not stock/AI. "Become a Member" points
+          at a mailto since there's no online application flow built yet —
+          swap once the New Applications page exists. */}
       <section className="relative overflow-hidden bg-brand-primary text-white">
         <div className="absolute inset-0">
           <Image
@@ -22,15 +23,15 @@ export default function Home() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark via-brand-primary-dark/75 to-brand-primary-dark/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-primary-dark via-brand-primary-dark/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-primary-dark/80 via-transparent to-transparent" />
         </div>
 
         <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-32 sm:px-6 sm:pt-28 sm:pb-40">
-          <p className="font-serif text-2xl italic text-brand-accent">
-            Welcome to
-          </p>
-          <h1 className="mt-1 text-4xl font-bold tracking-tight sm:text-6xl">
-            Tzaneen Chamber of Commerce
+          <h1 className="text-4xl font-bold uppercase leading-tight tracking-tight sm:text-6xl">
+            Tzaneen Chamber
+            <br />
+            <span className="text-brand-accent">of Commerce</span>
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/85">
             Advocacy, networking and representation for the businesses
@@ -39,10 +40,10 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <a
-              href="mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination"
+              href="mailto:admin@tzaneenchamber.org.za?subject=Membership%20Enquiry"
               className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
             >
-              Nominate Now
+              Become a Member
             </a>
             <a
               href="#call-back"
@@ -86,9 +87,11 @@ export default function Home() {
         </div>
       </div>
 
+      <QuickLinks />
+
       {/* Tagline + contact strip */}
       <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 pt-20 pb-16 sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 pt-16 pb-16 sm:px-6">
           <blockquote className="border-l-4 border-brand-accent pl-6 text-xl leading-relaxed text-brand-ink sm:text-2xl">
             &ldquo;We are a dynamic business association that supports local
             businesses and their role in the economic prosperity of Greater

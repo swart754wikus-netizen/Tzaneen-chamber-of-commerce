@@ -185,6 +185,16 @@ Applied from that reference:
 
 Not yet done: About Us, Articles, Certificate of Origin, Awards, New Applications, Contact Us pages; Firebase project creation/config; real logo, member list, social URLs, eCOO SmartAdmin link, and the rest of the Membership Application form fields.
 
+### Redesign #3 — matched to a second reference screenshot
+
+You sent another reference image (different chamber-style site: "Growing Business in Tzaneen" hero, clean single white nav, icon-card row, Latest News / Member Spotlight section). Same as last time, I treated this as a style reference, not a feature request — Directory, Invest, Events, Latest News, and Member Spotlight modules from that image were **not built**, since they're new scope (and News/Member Spotlight would need real articles and member data we don't have).
+
+Applied from that reference:
+- **Header simplified**: dropped the separate dark utility bar from redesign #2 — back to a single clean white nav bar (logo, centered links, "Become a Member" CTA button), matching this reference's cleaner layout. The "Member Login" placeholder is no longer shown inline (it was crowding the header at 1280px and causing horizontal overflow — fixed by removing it from the visible row); the Phase 2 hook is still noted in a code comment at its intended spot next to the CTA button.
+- **Hero**: two-tone bold headline ("TZANEEN CHAMBER" / "OF COMMERCE" in accent green), left-weighted gradient so more of the real photo shows through on the right (previously a flat dark overlay), primary CTA changed to "Become a Member" (mailto) with "Request a Call Back" as the secondary outline button.
+- **New `components/home/QuickLinks.tsx`**: 3-card icon row below the stat bar, reusing content we already have rather than inventing new pages — "Become a Member" (mailto), "Certificate of Origin" (marked "Page coming soon", inert — COO page isn't built), "Annual Awards" (mailto nomination, moved out of the hero into this card).
+- Fixed a real bug along the way: the header was overflowing horizontally at 1280px viewports (nav + button + Member Login text didn't fit), causing a visible gray gap down the right edge of the whole page. Verified fixed — `document.documentElement.scrollWidth` now matches `window.innerWidth` exactly.
+
 ---
 
 **Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.
