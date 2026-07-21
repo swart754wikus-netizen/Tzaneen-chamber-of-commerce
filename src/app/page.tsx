@@ -1,5 +1,6 @@
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
+import { ImpactSection } from "@/components/home/ImpactSection";
 
 export default function Home() {
   return (
@@ -60,6 +61,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ImpactSection />
 
       {/* Call Back Request */}
       <section className="bg-brand-cream">
