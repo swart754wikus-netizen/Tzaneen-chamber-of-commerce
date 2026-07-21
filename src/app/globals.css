@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf7f0;
+  --foreground: #1f2937;
 
-  /* Approximated from old-site screenshots — exact brand hex values not yet
-     confirmed by the client. Flagged in PLAN.md; adjust when a brand guide
-     or exact values are supplied. */
-  --color-brand-green: #3f6b35;
-  --color-brand-green-dark: #2c4d26;
-  --color-brand-gold: #e8b923;
-  --color-brand-gold-dark: #c99f1c;
+  /* Refreshed palette — deliberately distinct from the old site's plain
+     forest-green/gold. Deep teal-green + warm terracotta (a nod to
+     Tzaneen's citrus/fruit economy, not literal branding), on a soft
+     cream background. Not tied to an official brand guide — flag if the
+     client has exact values they want instead. */
+  --color-brand-primary: #16423c;
+  --color-brand-primary-dark: #0d2b26;
+  --color-brand-accent: #e9724c;
+  --color-brand-accent-dark: #cf5c38;
+  --color-brand-cream: #fbf7f0;
+  --color-brand-ink: #1f2937;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand-green: var(--color-brand-green);
-  --color-brand-green-dark: var(--color-brand-green-dark);
-  --color-brand-gold: var(--color-brand-gold);
-  --color-brand-gold-dark: var(--color-brand-gold-dark);
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-primary-dark: var(--color-brand-primary-dark);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-brand-accent-dark: var(--color-brand-accent-dark);
+  --color-brand-cream: var(--color-brand-cream);
+  --color-brand-ink: var(--color-brand-ink);
 }
 
 body {

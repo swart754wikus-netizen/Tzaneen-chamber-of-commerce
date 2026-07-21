@@ -8,8 +8,8 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-brand-green-dark text-white">
-      <div className="h-2 bg-brand-gold" aria-hidden />
+    <footer className="bg-brand-primary-dark text-white">
+      <div className="h-1.5 bg-brand-accent" aria-hidden />
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-3">
           <div>
@@ -25,7 +25,7 @@ export function Footer() {
             <p className="font-semibold text-white">Contact</p>
             <p className="mt-2">
               Phone:{" "}
-              <a href="tel:+27832809723" className="hover:text-brand-gold">
+              <a href="tel:+27832809723" className="hover:text-brand-accent">
                 083 280 9723
               </a>
             </p>
@@ -33,7 +33,7 @@ export function Footer() {
               Email:{" "}
               <a
                 href="mailto:admin@tzaneenchamber.org.za"
-                className="hover:text-brand-gold"
+                className="hover:text-brand-accent"
               >
                 admin@tzaneenchamber.org.za
               </a>
@@ -67,7 +67,7 @@ export function Footer() {
               href="https://gls-technologies.co.za"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-white hover:text-brand-gold"
+              className="font-medium text-white hover:text-brand-accent"
             >
               GLS Technologies
             </a>

@@ -165,7 +165,7 @@ What's live in `src/`:
 - `components/ui/ImagePlaceholder.tsx` — visible flagged placeholder (dashed border + label), used for the hero image and the 4 member-logo slots. No stock or AI imagery used anywhere.
 
 Decisions made while building (flagging, not assuming silently):
-- **Colors**: approximated brand green/gold from the screenshots (exact hex values not confirmed) — see `src/app/globals.css`. Update if you have real brand values.
+- **Colors/look**: deliberately moved away from the old site's plain forest-green + gold — that read as too close a copy rather than a "refreshed design." New palette is deep teal-green (`--color-brand-primary`) + warm terracotta accent (`--color-brand-accent`) on a soft cream background (`--color-brand-cream`), see `src/app/globals.css`. Visual language also changed: rounded cards, pill buttons, a split hero with a floating image card, and a quote block with an accent border, replacing the old site's flat colored bands. Not tied to an official brand guide — flag if you want different colors.
 - **Logo**: placeholder "TCC" mark in the header — real logo file still needed.
 - **"Nominate Now!" button**: points at `mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination` since the real nomination destination/flow isn't known. Easy one-line change once you tell me where it should actually go.
 - **"Our Members" carousel**: simplified to a static 4-slot placeholder grid (no real member logos available) rather than building carousel/slider behavior for content that doesn't exist yet.

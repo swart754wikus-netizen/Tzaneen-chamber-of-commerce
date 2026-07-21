@@ -38,9 +38,11 @@ export function CallBackRequestForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-lg bg-white/10 p-6 text-center">
-        <p className="font-semibold">Thanks — we&apos;ve got your details.</p>
-        <p className="mt-1 text-sm text-white/80">
+      <div className="rounded-2xl bg-brand-primary/5 p-6 text-center">
+        <p className="font-semibold text-brand-primary">
+          Thanks — we&apos;ve got your details.
+        </p>
+        <p className="mt-1 text-sm text-brand-ink/70">
           Someone from the Chamber will call you back soon.
         </p>
       </div>
@@ -48,10 +50,15 @@ export function CallBackRequestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3" noValidate>
-      <h3 className="text-xl font-bold uppercase tracking-wide">
-        Call Back Request
-      </h3>
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      <div>
+        <h3 className="text-xl font-bold text-brand-primary">
+          Request a call back
+        </h3>
+        <p className="mt-1 text-sm text-brand-ink/60">
+          Leave your details and we&apos;ll call you.
+        </p>
+      </div>
 
       <div>
         <label htmlFor="callback-name" className="sr-only">
@@ -64,7 +71,7 @@ export function CallBackRequestForm() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border border-white/30 bg-white/95 px-4 py-3 text-black placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+          className="w-full rounded-xl border border-brand-primary/15 bg-white px-4 py-3 text-brand-ink placeholder:text-brand-ink/40 focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
         />
       </div>
 
@@ -79,12 +86,12 @@ export function CallBackRequestForm() {
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full rounded-md border border-white/30 bg-white/95 px-4 py-3 text-black placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+          className="w-full rounded-xl border border-brand-primary/15 bg-white px-4 py-3 text-brand-ink placeholder:text-brand-ink/40 focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
         />
       </div>
 
       {status === "error" && (
-        <p className="text-sm font-medium text-yellow-100" role="alert">
+        <p className="text-sm font-medium text-brand-accent-dark" role="alert">
           {errorMessage}
         </p>
       )}
@@ -92,9 +99,9 @@ export function CallBackRequestForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-md bg-brand-gold px-4 py-3 font-semibold text-brand-green-dark transition-colors hover:bg-brand-gold-dark disabled:opacity-60"
+        className="w-full rounded-full bg-brand-accent px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending…" : "Send »"}
+        {status === "submitting" ? "Sending…" : "Send request"}
       </button>
     </form>
   );
