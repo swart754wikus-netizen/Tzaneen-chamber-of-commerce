@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { NeedsContent } from "@/components/ui/NeedsContent";
 import { MembershipApplicationForm } from "@/components/apply/MembershipApplicationForm";
+import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 
 export const metadata: Metadata = {
   title: "New Membership Application — Tzaneen Chamber of Commerce",
@@ -21,6 +22,13 @@ export default function ApplyPage() {
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
           <div className="rounded-3xl bg-brand-cream p-8 shadow-sm">
             <MembershipApplicationForm />
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-3 text-center">
+            <p className="text-sm text-brand-ink/60">
+              Prefer not to fill in a form?
+            </p>
+            <WhatsAppLink message="Hi, I'd like to apply for membership at the Tzaneen Chamber of Commerce." />
           </div>
 
           <div className="mt-8">
