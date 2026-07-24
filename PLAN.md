@@ -223,6 +223,29 @@ You asked me to build the remaining pages. All 6 are live now, using only real c
 
 Still outstanding: Firebase project creation/config (needed for any of the forms or the article feed to actually work), real logo file, member list/logos, social profile URLs, the eCOO SmartAdmin URL, the rest of the Membership Application form fields, and all the Awards content flagged above.
 
+### Admin email notifications (EmailJS)
+
+You confirmed the admin needs to be notified when someone submits a form — otherwise submissions just sit in Firestore with nobody knowing to look. A Cloud Function would need upgrading the Firebase project to the Blaze (pay-as-you-go) plan just for this, so instead I used **EmailJS**, a client-side email service with a free tier (200 emails/month) that needs no Firebase billing change.
+
+**Setup needed from you** (I can't create third-party accounts on your behalf):
+1. Sign up free at [emailjs.com](https://www.emailjs.com).
+2. Connect `admin@tzaneenchamber.org.za` as an email service (Gmail, Outlook, or SMTP).
+3. Create one email template. It receives these variables depending on which form fired it — set the template's "To Email" to `admin@tzaneenchamber.org.za` and build the body from `{{formName}}`, `{{submittedAt}}`, plus:
+   - Call Back Request: `{{name}}`, `{{phone}}`
+   - Contact Us: `{{name}}`, `{{email}}`, `{{message}}`
+   - New Membership Application: `{{firstName}}`, `{{surname}}`, `{{companyAddress}}`, `{{companyPhone}}`, `{{companyEmail}}`, `{{vatNumber}}`
+4. Add `NEXT_PUBLIC_EMAILJS_SERVICE_ID`, `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`, `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` to Vercel's environment variables (from EmailJS's dashboard — Account > API Keys, and your service/template IDs).
+
+Until that's set up, forms still save to Firestore correctly — the email step is wrapped so a missing/failed email never blocks or breaks the actual submission (`lib/email.ts`, `isEmailConfigured` guard).
+
+### Contact page: added a map
+
+Added an embedded map ("Find us") below the existing contact form and details, per your request — kept the form rather than removing it. Uses a plain Google Maps embed URL (no API key needed, no cost). Note: I couldn't visually verify the map tiles load in this sandboxed dev environment (it blocks outbound requests to maps.google.com, same as it blocked the old site earlier) — the map loads directly in each visitor's browser on the real site, so please double check it renders correctly on the live Vercel URL.
+
+### Housekeeping: dependency security patch
+
+`npm audit` flagged 3 high-severity issues, all inside Next.js's own bundled dependencies (an internal `postcss` and `sharp`), not code we call directly. Upgraded Next.js to the latest available patch (16.2.11) — that's as far as it goes until Next.js itself ships a release bumping those internal deps further. `npm audit fix --force`'s suggested fix would downgrade Next.js to a 2019-era version and break the entire app, so that was not applied.
+
 ---
 
 **Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.

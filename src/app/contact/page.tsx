@@ -66,6 +66,23 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <section className="bg-brand-cream">
+        <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6">
+          <h2 className="text-xl font-bold text-brand-primary">
+            Find us
+          </h2>
+          <div className="mt-6 overflow-hidden rounded-3xl shadow-sm">
+            <iframe
+              title="Map showing Tzaneen Showground, Tzaneen, 0850"
+              src="https://maps.google.com/maps?q=Tzaneen%20Showground%2C%20Tzaneen%2C%200850&output=embed"
+              className="h-96 w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

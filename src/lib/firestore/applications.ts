@@ -1,5 +1,6 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@/lib/firebase";
+import { sendAdminNotification } from "@/lib/email";
 
 export type MembershipApplicationInput = {
   firstName: string;
@@ -28,5 +29,16 @@ export async function submitMembershipApplication(
     companyEmail: input.companyEmail,
     vatNumber: input.vatNumber || null,
     submittedAt: serverTimestamp(),
+  });
+
+  await sendAdminNotification({
+    formName: "New Membership Application",
+    firstName: input.firstName,
+    surname: input.surname,
+    companyAddress: input.companyAddress,
+    companyPhone: input.companyPhone,
+    companyEmail: input.companyEmail,
+    vatNumber: input.vatNumber || "N/A",
+    submittedAt: new Date().toLocaleString(),
   });
 }

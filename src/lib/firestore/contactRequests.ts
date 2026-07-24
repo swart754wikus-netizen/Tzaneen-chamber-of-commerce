@@ -1,5 +1,6 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@/lib/firebase";
+import { sendAdminNotification } from "@/lib/email";
 
 export type CallBackRequestInput = {
   name: string;
@@ -19,6 +20,13 @@ export async function submitCallBackRequest(input: CallBackRequestInput) {
     message: null,
     source: "callback_widget",
     submittedAt: serverTimestamp(),
+  });
+
+  await sendAdminNotification({
+    formName: "Call Back Request",
+    name: input.name,
+    phone: input.phone,
+    submittedAt: new Date().toLocaleString(),
   });
 }
 
@@ -43,5 +51,13 @@ export async function submitContactPageRequest(
     message: input.message,
     source: "contact_page",
     submittedAt: serverTimestamp(),
+  });
+
+  await sendAdminNotification({
+    formName: "Contact Us",
+    name: input.name,
+    email: input.email,
+    message: input.message,
+    submittedAt: new Date().toLocaleString(),
   });
 }
