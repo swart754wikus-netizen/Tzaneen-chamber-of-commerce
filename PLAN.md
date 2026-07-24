@@ -238,6 +238,23 @@ You confirmed the admin needs to be notified when someone submits a form — oth
 
 Until that's set up, forms still save to Firestore correctly — the email step is wrapped so a missing/failed email never blocks or breaks the actual submission (`lib/email.ts`, `isEmailConfigured` guard).
 
+### WhatsApp — two different things, don't confuse them
+
+There are now two separate WhatsApp features on the site, added at different points in this conversation — worth being clear about which is which:
+
+1. **"Apply via WhatsApp" button** on `/apply` (below the form) — a plain `wa.me` link. A visitor clicks it, it opens WhatsApp with a pre-filled message, and *they* choose to hit send. No setup needed, works immediately, nothing to configure.
+2. **Automatic WhatsApp notification to the admin** — fires automatically the moment someone successfully submits the Membership Application *form* (not the WhatsApp button — those are two different paths to apply). This is the one you asked for last: "if they fill in the form... it needs to send the form via WhatsApp too the admin lady." Scoped to the New Applications form only, same as you asked — the Call Back Request and Contact Us forms don't trigger this.
+
+For #2, a real automatic send (as opposed to a link a human has to click) needs an actual API — a `wa.me` link can't do it on its own. The official route (Twilio/WhatsApp Business API) costs money and needs business verification, so I used **CallMeBot** instead — a free, unofficial WhatsApp API. Trade-off worth knowing: it's a hobby/community service, not officially supported by WhatsApp, so it's less guaranteed to keep working than a paid API would be.
+
+**Setup needed from you** (the *admin* does this from her own phone, once):
+1. Save `+34 684 74 92 43` as a contact.
+2. Send that contact the WhatsApp message: `I allow callmebot to add me`.
+3. CallMeBot replies with an API key.
+4. Add to Vercel's environment variables: `NEXT_PUBLIC_CALLMEBOT_PHONE` (her WhatsApp number, international format, no `+` or spaces — e.g. `27821234567`) and `NEXT_PUBLIC_CALLMEBOT_APIKEY` (the key from step 3).
+
+Until that's set up, applications still save to Firestore and still email (once EmailJS is set up) — the WhatsApp message is an extra layer, wrapped so it never blocks or breaks the actual submission if it's unconfigured or fails (`lib/whatsapp.ts`, `isWhatsAppConfigured` guard — same pattern as the email notification).
+
 ### Contact page: added a map
 
 Added an embedded map ("Find us") below the existing contact form and details, per your request — kept the form rather than removing it. Uses a plain Google Maps embed URL (no API key needed, no cost). Note: I couldn't visually verify the map tiles load in this sandboxed dev environment (it blocks outbound requests to maps.google.com, same as it blocked the old site earlier) — the map loads directly in each visitor's browser on the real site, so please double check it renders correctly on the live Vercel URL.
