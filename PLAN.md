@@ -1,10 +1,16 @@
-# Tzaneen Chamber of Commerce — Website Plan (Phase 1)
+# Tzaneen Chamber of Commerce — Website Plan (Phase 2, in progress)
 
-Status: All 7 pages built and live. **Firebase/Firestore was fully removed
-— see "Architecture change: Firebase/Firestore dropped entirely" near the
-bottom.** Anything below mentioning Firestore schemas, `firestore.rules`,
-or Firebase env vars is historical/outdated — kept as a record of how we
-got here, not as current instructions.
+Status: Original Phase 1 scope (7 pages) is done. **Phase 1's original
+boundaries no longer apply** — you asked for Directory, Invest, and Events
+to be actually built (not just styled), expanding scope beyond what was
+originally planned. See "Scope expansion: Directory, Invest, Events" near
+the bottom for what that means and what's still needed.
+
+**Firebase/Firestore was fully removed** — see "Architecture change:
+Firebase/Firestore dropped entirely" further down. Anything mentioning
+Firestore schemas, `firestore.rules`, or Firebase env vars elsewhere in
+this doc is historical/outdated — kept as a record of how we got here,
+not as current instructions.
 
 ## 0. Assumptions & open questions (please confirm/answer)
 
@@ -276,4 +282,25 @@ What changed:
 
 ---
 
-**Next**: tell me which page to build next, send real content to fill in what's flagged, or send the setup values (EmailJS / CallMeBot) so submissions actually reach you.
+### Scope expansion: Directory, Invest, Events
+
+You sent a third reference image and, unlike the first two times (where the answer was "style only"), this time confirmed you want these features actually built, and confirmed the "Trusted by" business names in that image (ZZ2, Westfalia, SGK, TWK, FNB, Standard Bank, Vodacom Business, Agri Technovation) are real Chamber members. Three new routes:
+
+- **`/directory`** (`src/lib/directory.ts`, `src/components/directory/DirectorySearch.tsx`) — search + category filter over the 8 confirmed real members. This is a partial list, not the full ~500-member roster the reference image's stats implied (those specific numbers — 500+, 3 000+, R1.8B+, 25+ — were never confirmed as real, so they weren't used anywhere). Categories are my best-effort guess from public knowledge of these companies (e.g. FNB → Financial Services), not chamber-supplied data. **Still needed: the rest of the member list, logo image files for all of them, and category corrections.**
+- **`/invest`** — structural shell with generic sector categories (Agriculture, Tourism & Hospitality, etc.). No real investment-opportunity content exists yet, so it's honestly just a category list with a `NeedsContent` flag. **Still needed: actual opportunities, incentives, or data to feature.**
+- **`/events`** (`src/lib/events.ts`) — same static-content pattern as Articles. Only one real event is on file.
+
+Also added to the homepage: replaced the placeholder "Our Members" image grid with a real "Trusted by leading businesses" strip using the 8 confirmed member names (as styled text, since no logo files exist yet — linked to `/directory`).
+
+**Nav got bigger** — now 9 items (Home, Directory, Invest, Events, News → `/articles`, About Us, COO, Awards, Contact Us), plus the "Become a Member" button covers what used to need a "New Applications" nav entry. This caused a real overflow bug at exactly 1024px viewport width (the button got clipped) — fixed by moving the desktop-nav breakpoint from `lg` (1024px) to `xl` (1280px); verified clean at 768/1024/1152/1279/1280/1366/1440/1920px.
+
+**Found a real data problem while building Events**: the only event on file, "Annual Award Ceremony, 25 March 2026," has already passed as of today. Showing it as the homepage's "next event" or on `/awards` as if upcoming would be actively misleading to visitors. Fixed:
+- `/events` now correctly shows "No upcoming events right now" instead of silently showing nothing (there was no empty-state before — real bug, not just a data problem).
+- The homepage stat bar shows "TBC" instead of the stale date.
+- `/awards` and `/events` both now explicitly ask you to confirm the real date.
+
+**Please confirm**: was 25 March 2026 a typo/different year, or does the ceremony need a new date? Everything downstream (homepage stat, Awards page, Events page) updates automatically once you tell me the real one.
+
+---
+
+**Next**: confirm the Award Ceremony date, send the rest of the member directory (names + logos), send real content for `/invest`, or tell me what to build next.

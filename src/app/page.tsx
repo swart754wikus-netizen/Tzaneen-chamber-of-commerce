@@ -1,15 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
 import { ImpactSection } from "@/components/home/ImpactSection";
 import { QuickLinks } from "@/components/home/QuickLinks";
+import { directoryMembers } from "@/lib/directory";
 
 const foundingYear = 1959;
 const yearsServing = new Date().getFullYear() - foundingYear;
+// The only date on file for the Annual Award Ceremony (25 Mar 2026) has
+// already passed as of today — showing it as "next event" would be
+// misleading, so this waits for a real confirmed date instead of
+// guessing one.
 const nextEvent = {
   name: "Annual Award Ceremony",
-  date: "25 Mar 2026",
+  date: "TBC",
 };
 
 export default function Home() {
@@ -135,21 +139,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Our Members */}
+      {/* Trusted by — real confirmed member names. No logo image files
+          exist yet, so these render as styled text wordmarks rather than
+          fabricated/placeholder logo graphics. */}
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="text-center text-2xl font-bold text-brand-primary sm:text-3xl">
-            Our Members
+          <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-brand-ink/50">
+            Trusted by leading businesses
           </h2>
-          <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {[1, 2, 3, 4].map((i) => (
-              <ImagePlaceholder
-                key={i}
-                label="[NEEDS PHOTO: member logo]"
-                className="aspect-square rounded-2xl shadow-sm transition-shadow hover:shadow-md"
-              />
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {directoryMembers.map((member) => (
+              <div
+                key={member.name}
+                className="flex items-center justify-center rounded-xl border border-brand-primary/10 bg-brand-cream px-4 py-6 text-center"
+                title={`Logo file needed for ${member.name}`}
+              >
+                <span className="font-bold text-brand-primary">
+                  {member.name}
+                </span>
+              </div>
             ))}
           </div>
+          <p className="mt-6 text-center text-sm text-brand-ink/50">
+            Real logo files still needed for each — currently shown as text.{" "}
+            <Link
+              href="/directory"
+              className="font-semibold text-brand-accent-dark hover:text-brand-accent"
+            >
+              View full directory &rarr;
+            </Link>
+          </p>
         </div>
       </section>
     </>

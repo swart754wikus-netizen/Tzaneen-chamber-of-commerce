@@ -47,6 +47,12 @@ export default function AwardsPage() {
                 <li>Judging criteria / how nominations are decided</li>
                 <li>How the nomination process actually works (form, deadline, etc.)</li>
                 <li>Past winners or ceremony highlights, if you want them featured</li>
+                <li>
+                  <strong>The date itself</strong> — 25 March 2026 has
+                  already passed as of today. Please confirm the real
+                  upcoming date so this page isn&apos;t advertising a past
+                  event.
+                </li>
               </ul>
             </NeedsContent>
           </div>

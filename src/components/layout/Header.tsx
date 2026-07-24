@@ -31,7 +31,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden lg:block" aria-label="Primary">
+        <nav className="hidden xl:block" aria-label="Primary">
           <ul className="flex items-center gap-4 text-xs font-semibold uppercase xl:gap-5 xl:text-sm">
             {navLinks.map((link) => {
               const active =
@@ -67,7 +67,7 @@ export function Header() {
             to the CTA button — left out of the visible row for now since
             fitting the full nav plus an inert label made the header
             cramped; it's a one-line addition once auth exists. */}
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Link
             href="/apply"
             className="whitespace-nowrap rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-primary-dark xl:px-5 xl:py-2.5 xl:text-sm"
@@ -78,7 +78,7 @@ export function Header() {
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-brand-primary lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-brand-primary xl:hidden"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
@@ -103,7 +103,7 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-brand-primary/10 lg:hidden" aria-label="Primary mobile">
+        <nav className="border-t border-brand-primary/10 xl:hidden" aria-label="Primary mobile">
           <ul className="flex flex-col gap-1 px-4 py-3 text-sm font-semibold uppercase">
             {navLinks.map((link) => {
               const active =
