@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitMembershipApplication } from "@/lib/firestore/applications";
+import { submitMembershipApplication } from "@/lib/forms/applications";
 
 type Status = "idle" | "submitting" | "success" | "error";
 

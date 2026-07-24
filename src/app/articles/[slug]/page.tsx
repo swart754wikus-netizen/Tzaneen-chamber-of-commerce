@@ -1,30 +1,31 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { getArticleBySlug, type Article } from "@/lib/firestore/articles";
+import { articles, getArticleBySlug, formatArticleDate } from "@/lib/articles";
 
-export default function ArticleDetailPage() {
-  const params = useParams<{ slug: string }>();
-  const [article, setArticle] = useState<Article | null | undefined>(undefined);
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-  useEffect(() => {
-    getArticleBySlug(params.slug).then(setArticle);
-  }, [params.slug]);
+export function generateStaticParams() {
+  return articles.map((article) => ({ slug: article.slug }));
+}
 
-  if (article === undefined) {
-    return (
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <p className="text-brand-ink/60">Loading&hellip;</p>
-        </div>
-      </section>
-    );
-  }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
+  return {
+    title: article
+      ? `${article.title} — Tzaneen Chamber of Commerce`
+      : "Article not found — Tzaneen Chamber of Commerce",
+  };
+}
 
-  if (article === null) {
+export default async function ArticleDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
+
+  if (!article) {
     return (
       <>
         <PageHeader eyebrow="Articles" title="Not found" />
@@ -47,7 +48,10 @@ export default function ArticleDetailPage() {
 
   return (
     <>
-      <PageHeader eyebrow={article.date} title={article.title} />
+      <PageHeader
+        eyebrow={formatArticleDate(article.date)}
+        title={article.title}
+      />
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
           <div className="whitespace-pre-wrap text-brand-ink/80">

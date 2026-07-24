@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitCallBackRequest } from "@/lib/firestore/contactRequests";
+import { submitCallBackRequest } from "@/lib/forms/contactRequests";
 
 type Status = "idle" | "submitting" | "success" | "error";
 

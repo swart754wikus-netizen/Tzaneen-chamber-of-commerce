@@ -12,9 +12,11 @@ type NotificationParams = {
   [key: string]: string;
 };
 
-// Best-effort admin notification for a new form submission. Never throws —
-// the Firestore write is the record of truth; a failed/unconfigured email
-// should not make the form look like it failed to the person submitting it.
+// Best-effort admin notification for a new form submission. Never throws on
+// its own — callers check isEmailConfigured / isWhatsAppConfigured together
+// before attempting either, so a submission only fails if NO channel is
+// configured at all. A single channel failing shouldn't make the whole
+// submission look like it failed if the other channel got through.
 export async function sendAdminNotification(params: NotificationParams) {
   if (!isEmailConfigured) return;
 

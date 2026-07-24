@@ -1,10 +1,10 @@
 # Tzaneen Chamber of Commerce — Website Plan (Phase 1)
 
-Status: Landing page (Home) built as a first slice, per your instruction to
-do the landing page first. Other pages below are still just planned, not
-built — nav links to them are present but inert (greyed out) until each one
-is implemented. See "Build log" at the bottom for what actually exists in
-the repo right now.
+Status: All 7 pages built and live. **Firebase/Firestore was fully removed
+— see "Architecture change: Firebase/Firestore dropped entirely" near the
+bottom.** Anything below mentioning Firestore schemas, `firestore.rules`,
+or Firebase env vars is historical/outdated — kept as a record of how we
+got here, not as current instructions.
 
 ## 0. Assumptions & open questions (please confirm/answer)
 
@@ -263,6 +263,17 @@ Added an embedded map ("Find us") below the existing contact form and details, p
 
 `npm audit` flagged 3 high-severity issues, all inside Next.js's own bundled dependencies (an internal `postcss` and `sharp`), not code we call directly. Upgraded Next.js to the latest available patch (16.2.11) — that's as far as it goes until Next.js itself ships a release bumping those internal deps further. `npm audit fix --force`'s suggested fix would downgrade Next.js to a 2019-era version and break the entire app, so that was not applied.
 
+### Architecture change: Firebase/Firestore dropped entirely
+
+You questioned why Firestore was needed at all — first for forms ("it doesn't need to save the data, the data just needs to be sent to a WhatsApp number"), then for Articles ("why do i need it for articles i can just upload it"). Both were fair — the earlier design carried real setup burden (create a Firebase project, configure security rules, learn the console) for something this site doesn't actually need. **This supersedes everything written above about Firestore schemas, `firestore.rules`, and Firebase env vars — none of that exists anymore.**
+
+What changed:
+- **Forms** (Call Back Request, Contact Us, New Membership Application): no database at all now. Each submission goes straight to the admin via email (EmailJS) and/or WhatsApp (CallMeBot) — whichever channel(s) you've set up. Moved from `lib/firestore/*` to `lib/forms/*` to reflect this. If *neither* channel is configured, submission now fails immediately with a clear error (same fail-fast philosophy as before) rather than silently doing nothing.
+- **Articles**: no database either. Content now lives directly in the code at `src/lib/articles.ts` as a plain array — currently empty. **To publish something, send me the text and I'll add it as an entry and push it live** — no console, no login, no separate CMS. Every page on the site is now fully static (`next build` shows every route as prerendered — even the article detail page, via `generateStaticParams`), which is also faster and simpler to host.
+- Removed entirely: the `firebase` npm package, `src/lib/firebase.ts`, `firestore.rules`. `.env.local.example` now only lists the EmailJS and CallMeBot variables — nothing else is required for the site to fully work.
+
+**Net effect: you never need to create a Firebase project for anything in this build.** The only two setup steps left are the ones already documented above — EmailJS (email notifications) and CallMeBot (WhatsApp notifications) — and you only need one of the two for forms to work at all, though having both is more reliable.
+
 ---
 
-**Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.
+**Next**: tell me which page to build next, send real content to fill in what's flagged, or send the setup values (EmailJS / CallMeBot) so submissions actually reach you.

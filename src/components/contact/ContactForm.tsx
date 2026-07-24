@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitContactPageRequest } from "@/lib/firestore/contactRequests";
+import { submitContactPageRequest } from "@/lib/forms/contactRequests";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
