@@ -195,6 +195,18 @@ Applied from that reference:
 - **New `components/home/QuickLinks.tsx`**: 3-card icon row below the stat bar, reusing content we already have rather than inventing new pages — "Become a Member" (mailto), "Certificate of Origin" (marked "Page coming soon", inert — COO page isn't built), "Annual Awards" (mailto nomination, moved out of the hero into this card).
 - Fixed a real bug along the way: the header was overflowing horizontally at 1280px viewports (nav + button + Member Login text didn't fit), causing a visible gray gap down the right edge of the whole page. Verified fixed — `document.documentElement.scrollWidth` now matches `window.innerWidth` exactly.
 
+**Vercel is now connected** — live at `tzaneen-chamber-of-commerce.vercel.app`, auto-deploying on every push to `main`.
+
+### Stat bar expanded — member businesses, jobs supported, next event
+
+You confirmed the site should stay a single-page home (no separate pages needed) showing: how many businesses are with the chamber, how many jobs they support, and what's the next event. The stat bar is now 4 columns instead of 3:
+- Years serving Greater Tzaneen — real, calculated from 1959
+- Member businesses — flagged `[NEEDS CONTENT]`, no real count supplied yet
+- Jobs supported — flagged `[NEEDS CONTENT]`, new stat, no real figure yet
+- Next event — real: "25 Mar 2026 — Annual Award Ceremony" (same event already on the site, just surfaced here too)
+
+Send real numbers for member businesses / jobs supported whenever you have them and they replace the flagged placeholders directly.
+
 ---
 
 **Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.

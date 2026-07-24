@@ -6,6 +6,10 @@ import { QuickLinks } from "@/components/home/QuickLinks";
 
 const foundingYear = 1959;
 const yearsServing = new Date().getFullYear() - foundingYear;
+const nextEvent = {
+  name: "Annual Award Ceremony",
+  date: "25 Mar 2026",
+};
 
 export default function Home() {
   return (
@@ -55,11 +59,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stat bar — overlaps the hero's bottom edge. Years-serving is
-          calculated from the real founding year; the other two are
-          flagged placeholders, not real figures. */}
+      {/* Stat bar — overlaps the hero's bottom edge. Years-serving and next
+          event are real; member/jobs counts are flagged placeholders, not
+          invented figures — send real numbers and they drop straight in. */}
       <div className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
-        <div className="grid grid-cols-1 gap-4 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-3 sm:p-8">
+        <div className="grid grid-cols-2 gap-4 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-4 sm:p-8">
           <div className="text-center sm:border-r sm:border-white/10">
             <p className="text-3xl font-bold text-white sm:text-4xl">
               {yearsServing}+
@@ -73,15 +77,23 @@ export default function Home() {
               [NEEDS CONTENT]
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Active members
+              Member businesses
             </p>
           </div>
-          <div className="text-center">
+          <div className="text-center sm:border-r sm:border-white/10">
             <p className="text-3xl font-bold text-brand-accent sm:text-4xl">
               [NEEDS CONTENT]
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Businesses represented
+              Jobs supported
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-white sm:text-3xl">
+              {nextEvent.date}
+            </p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
+              Next event: {nextEvent.name}
             </p>
           </div>
         </div>
