@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navLinks } from "@/lib/nav";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 border-b border-brand-primary/10 bg-white">
@@ -31,25 +33,33 @@ export function Header() {
 
         <nav className="hidden lg:block" aria-label="Primary">
           <ul className="flex items-center gap-4 text-xs font-semibold uppercase xl:gap-5 xl:text-sm">
-            {navLinks.map((link) => (
-              <li key={link.label} className="whitespace-nowrap">
-                {link.href ? (
-                  <Link
-                    href={link.href}
-                    className="border-b-2 border-brand-accent pb-1 text-brand-primary"
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <span
-                    className="cursor-default pb-1 text-brand-primary/30"
-                    title={`${link.label} — coming soon`}
-                  >
-                    {link.label}
-                  </span>
-                )}
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const active =
+                link.href &&
+                (pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(`${link.href}/`)));
+              return (
+                <li key={link.label} className="whitespace-nowrap">
+                  {link.href ? (
+                    <Link
+                      href={link.href}
+                      className={`pb-1 text-brand-primary ${
+                        active ? "border-b-2 border-brand-accent" : ""
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <span
+                      className="cursor-default pb-1 text-brand-primary/30"
+                      title={`${link.label} — coming soon`}
+                    >
+                      {link.label}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -58,12 +68,12 @@ export function Header() {
             fitting the full nav plus an inert label made the header
             cramped; it's a one-line addition once auth exists. */}
         <div className="hidden lg:block">
-          <a
-            href="mailto:admin@tzaneenchamber.org.za?subject=Membership%20Enquiry"
+          <Link
+            href="/apply"
             className="whitespace-nowrap rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-primary-dark xl:px-5 xl:py-2.5 xl:text-sm"
           >
             Become a Member
-          </a>
+          </Link>
         </div>
 
         <button
@@ -95,34 +105,42 @@ export function Header() {
       {menuOpen && (
         <nav className="border-t border-brand-primary/10 lg:hidden" aria-label="Primary mobile">
           <ul className="flex flex-col gap-1 px-4 py-3 text-sm font-semibold uppercase">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.href ? (
-                  <Link
-                    href={link.href}
-                    className="block rounded-lg px-3 py-2 text-brand-primary transition-colors hover:bg-brand-primary/5"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <span
-                    className="block cursor-default rounded-lg px-3 py-2 text-brand-primary/30"
-                    title={`${link.label} — coming soon`}
-                  >
-                    {link.label}
-                  </span>
-                )}
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const active =
+                link.href &&
+                (pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(`${link.href}/`)));
+              return (
+                <li key={link.label}>
+                  {link.href ? (
+                    <Link
+                      href={link.href}
+                      className={`block rounded-lg px-3 py-2 text-brand-primary transition-colors hover:bg-brand-primary/5 ${
+                        active ? "bg-brand-primary/5" : ""
+                      }`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <span
+                      className="block cursor-default rounded-lg px-3 py-2 text-brand-primary/30"
+                      title={`${link.label} — coming soon`}
+                    >
+                      {link.label}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
             <li className="mt-2 border-t border-brand-primary/10 pt-2">
-              <a
-                href="mailto:admin@tzaneenchamber.org.za?subject=Membership%20Enquiry"
+              <Link
+                href="/apply"
                 className="block rounded-full bg-brand-primary px-4 py-2.5 text-center text-white"
                 onClick={() => setMenuOpen(false)}
               >
                 Become a Member
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

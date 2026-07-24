@@ -16,3 +16,8 @@ export const firebaseApp =
   getApps()[0] ?? initializeApp(firebaseConfig);
 
 export const db = getFirestore(firebaseApp);
+
+// Without a real project ID, Firestore calls hang instead of failing fast
+// (the SDK just retries silently). Checking this first lets form submits
+// fail immediately with a clear message rather than spinning forever.
+export const isFirebaseConfigured = Boolean(firebaseConfig.projectId);

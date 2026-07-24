@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type QuickLink = {
   title: string;
   description: string;
@@ -22,8 +24,8 @@ const links: QuickLink[] = [
     title: "Become a Member",
     description:
       "Join a network representing Greater Tzaneen businesses through advocacy, networking and representation.",
-    linkLabel: "Get in touch",
-    href: "mailto:admin@tzaneenchamber.org.za?subject=Membership%20Enquiry",
+    linkLabel: "Apply now",
+    href: "/apply",
     icon: (
       <svg {...iconProps}>
         <path d="M17 20h5v-2a4 4 0 0 0-3-3.87" />
@@ -37,8 +39,8 @@ const links: QuickLink[] = [
     title: "Certificate of Origin",
     description:
       "Certify your exported goods and unlock preferential trade rates through our accredited COO process.",
-    linkLabel: "Page coming soon",
-    href: null,
+    linkLabel: "Read the guide",
+    href: "/certificate-of-origin",
     icon: (
       <svg {...iconProps}>
         <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -51,8 +53,8 @@ const links: QuickLink[] = [
     title: "Annual Awards",
     description:
       "Celebrating Greater Tzaneen's businesses at our Annual Award Ceremony, 25 March 2026.",
-    linkLabel: "Nominate now",
-    href: "mailto:admin@tzaneenchamber.org.za?subject=Award%20Nomination",
+    linkLabel: "See the details",
+    href: "/awards",
     icon: (
       <svg {...iconProps}>
         <path d="M8 21h8M12 17v4" />
@@ -79,12 +81,21 @@ export function QuickLinks() {
               <h3 className="mt-4 font-bold text-brand-primary">{link.title}</h3>
               <p className="mt-2 text-sm text-brand-ink/70">{link.description}</p>
               {link.href ? (
-                <a
-                  href={link.href}
-                  className="mt-4 inline-block text-sm font-semibold uppercase tracking-wide text-brand-accent-dark hover:text-brand-accent"
-                >
-                  {link.linkLabel} &rarr;
-                </a>
+                link.href.startsWith("/") ? (
+                  <Link
+                    href={link.href}
+                    className="mt-4 inline-block text-sm font-semibold uppercase tracking-wide text-brand-accent-dark hover:text-brand-accent"
+                  >
+                    {link.linkLabel} &rarr;
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="mt-4 inline-block text-sm font-semibold uppercase tracking-wide text-brand-accent-dark hover:text-brand-accent"
+                  >
+                    {link.linkLabel} &rarr;
+                  </a>
+                )
               ) : (
                 <span
                   className="mt-4 inline-block text-sm font-semibold uppercase tracking-wide text-brand-ink/30"

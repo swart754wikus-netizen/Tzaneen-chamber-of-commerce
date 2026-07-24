@@ -1,9 +1,5 @@
-const goals = [
-  "Assist members to utilize business opportunities in a changing environment",
-  "Positively influence the business climate for members and the broader business community",
-  "Underwrite a healthy business ethic",
-  "Underwrite a market-driven economy in cooperation with all role players",
-];
+import Link from "next/link";
+import { chamberGoals } from "@/lib/content";
 
 export function ImpactSection() {
   return (
@@ -32,6 +28,12 @@ export function ImpactSection() {
               giving Greater Tzaneen&apos;s businesses a voice at provincial
               and national level.
             </p>
+            <Link
+              href="/about"
+              className="mt-4 inline-block text-sm font-semibold uppercase tracking-wide text-brand-accent-dark hover:text-brand-accent"
+            >
+              Read our full story &rarr;
+            </Link>
           </div>
 
           <div>
@@ -39,7 +41,7 @@ export function ImpactSection() {
               Our goals
             </h2>
             <ul className="mt-4 space-y-3">
-              {goals.map((goal) => (
+              {chamberGoals.map((goal) => (
                 <li key={goal} className="flex gap-3 text-brand-ink/80">
                   <span
                     aria-hidden

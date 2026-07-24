@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
 import { ImpactSection } from "@/components/home/ImpactSection";
@@ -15,9 +16,7 @@ export default function Home() {
   return (
     <>
       {/* Hero. Photo supplied by the client (aerial view of the Tzaneen
-          area) — real photography, not stock/AI. "Become a Member" points
-          at a mailto since there's no online application flow built yet —
-          swap once the New Applications page exists. */}
+          area) — real photography, not stock/AI. */}
       <section className="relative overflow-hidden bg-brand-primary text-white">
         <div className="absolute inset-0">
           <Image
@@ -43,12 +42,12 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="mailto:admin@tzaneenchamber.org.za?subject=Membership%20Enquiry"
+            <Link
+              href="/apply"
               className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
             >
               Become a Member
-            </a>
+            </Link>
             <a
               href="#call-back"
               className="rounded-full border-2 border-white px-7 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-brand-primary"

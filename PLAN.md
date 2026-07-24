@@ -207,6 +207,22 @@ You confirmed the site should stay a single-page home (no separate pages needed)
 
 Send real numbers for member businesses / jobs supported whenever you have them and they replace the flagged placeholders directly.
 
+### All Phase 1 pages built
+
+You asked me to build the remaining pages. All 6 are live now, using only real content from `content/old-site-content.md` — nothing invented. Routes: `/about`, `/certificate-of-origin`, `/awards`, `/apply`, `/contact`, `/articles` (+ `/articles/[slug]`). Nav links are no longer inert — `lib/nav.ts` now points every item at a real route, with active-page highlighting added to the header.
+
+- **About Us**: full story, leadership & milestones, partnerships/affiliations, goals, membership benefits — all real content, reorganized from the homepage's condensed version plus additional detail. "Become a Member" CTA links to `/apply`.
+- **Certificate of Origin**: full guide (types, eligibility, pricing, 7-step process, processing time) plus an FAQ accordion — the FAQ answers are real content reused from elsewhere on the page (the old site only had the questions, not written-out answers), not invented. "Apply Now" is shown as an inert, clearly-labeled button pending the real eCOO SmartAdmin URL.
+- **Awards**: real ceremony date + Nominate Now (mailto), with an explicit `NeedsContent` callout listing exactly what's missing (categories, criteria, nomination process, past winners) — the old site had nothing more to pull from.
+- **New Applications**: `MembershipApplicationForm` with the known real fields (Name, Surname, Company Address, Company Telephone, Company Email, VAT Number), writing to Firestore `memberApplications`. Flagged that the old form likely has one more field cut off in your screenshots.
+- **Contact Us**: real contact details + `ContactForm` (Name, Email, Message) writing to `contactRequests` with `source: "contact_page"`.
+- **Articles**: listing + detail pages reading from Firestore `articles`. Shows a clean "No articles yet" empty state rather than erroring, since no Firebase project/content exists yet.
+- All "Become a Member" links across the site (header, hero, QuickLinks, About page) now point to `/apply` instead of the earlier mailto placeholder, since a real form exists now. QuickLinks' Certificate of Origin and Annual Awards cards now link to their real pages too.
+
+**Bug fix found while testing**: the Call Back Request and Membership Application forms would hang forever on "Sending…" when Firebase isn't configured (the Firestore SDK doesn't fail fast — it just retries silently). Added an `isFirebaseConfigured` check in `lib/firebase.ts` used by every Firestore read/write so forms now fail immediately with a clear error message instead of spinning indefinitely. Verified via automated click-through testing, not just visual screenshots.
+
+Still outstanding: Firebase project creation/config (needed for any of the forms or the article feed to actually work), real logo file, member list/logos, social profile URLs, the eCOO SmartAdmin URL, the rest of the Membership Application form fields, and all the Awards content flagged above.
+
 ---
 
 **Next**: tell me which page to build next, or send the remaining assets/content (section 0) so I can fill in what's still flagged.
