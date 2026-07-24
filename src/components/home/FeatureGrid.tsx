@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const iconProps = {
@@ -17,6 +18,8 @@ const panels = [
     description: "Find trusted local businesses and Chamber members.",
     href: "/directory",
     linkLabel: "Browse Directory",
+    // Real photo supplied by the client.
+    photo: "/images/feature-directory.png",
     icon: (
       <svg {...iconProps}>
         <circle cx="11" cy="11" r="7" />
@@ -29,6 +32,7 @@ const panels = [
     description: "Explore investment opportunities in Greater Tzaneen.",
     href: "/invest",
     linkLabel: "Explore Opportunities",
+    photo: null, // [NEEDS PHOTO]
     icon: (
       <svg {...iconProps}>
         <path d="M3 17 9 11 13 15 21 7" />
@@ -41,6 +45,7 @@ const panels = [
     description: "Network, learn and grow at our business events.",
     href: "/events",
     linkLabel: "View Events",
+    photo: null, // [NEEDS PHOTO]
     icon: (
       <svg {...iconProps}>
         <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -53,6 +58,7 @@ const panels = [
     description: "Updates from the Chamber and the business community.",
     href: "/articles",
     linkLabel: "Read News",
+    photo: null, // [NEEDS PHOTO]
     icon: (
       <svg {...iconProps}>
         <path d="M4 4h13a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" />
@@ -72,13 +78,24 @@ export function FeatureGrid() {
             href={panel.href}
             className="group relative flex aspect-[4/3] flex-col items-center justify-center gap-3 overflow-hidden text-center text-white"
           >
-            {/* [NEEDS PHOTO] — real photography for each panel still
-                needed; a plain tinted background stands in for now
-                (border-only, no overlapping placeholder text). */}
-            <div
-              aria-hidden
-              className="absolute inset-0 border border-dashed border-white/15 bg-brand-primary opacity-90 transition-opacity group-hover:opacity-100"
-            />
+            {panel.photo ? (
+              <>
+                <Image
+                  src={panel.photo}
+                  alt=""
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-brand-primary-dark/70 transition-colors group-hover:bg-brand-primary-dark/60" />
+              </>
+            ) : (
+              // [NEEDS PHOTO] — no real photo supplied for this panel yet;
+              // plain tinted background stands in (no stock/AI imagery).
+              <div
+                aria-hidden
+                className="absolute inset-0 border border-dashed border-white/15 bg-brand-primary opacity-90 transition-opacity group-hover:opacity-100"
+              />
+            )}
             <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand-accent text-brand-accent">
               {panel.icon}
             </div>

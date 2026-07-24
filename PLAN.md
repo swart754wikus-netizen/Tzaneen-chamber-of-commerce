@@ -321,4 +321,12 @@ Verified: `next build` clean, no horizontal overflow at any width (mobile throug
 
 ---
 
-**Next**: confirm the Award Ceremony date, send the rest of the member directory (names + logos), send real content for `/invest`, or tell me what to build next.
+### No-stock-photo rule reversed — real photos now used where supplied
+
+You asked for real photos on the FeatureGrid panels (Invest, Events, etc.) and, since I have no way to source stock photography in this environment anyway (outbound network here is locked to an allowlist — same restriction that blocked the old chamber site and Google Maps earlier — general image sites like Unsplash/Pexels aren't reachable), you explicitly reversed the original "no stock/AI imagery" rule so real, client-supplied photos can be used going forward.
+
+You sent a photo of a business handshake (`public/images/feature-directory.png`) for the **Directory** panel — now live, with a dark overlay for text legibility, same treatment as the hero photo. Invest, Events, and News panels are still plain tinted placeholders — **send a photo for each and they'll go in the same way.**
+
+---
+
+**Next**: send photos for the Invest/Events/News panels, confirm the Award Ceremony date, send the rest of the member directory (names + logos), send real content for `/invest`, or tell me what to build next.
