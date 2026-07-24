@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { CallBackRequestForm } from "@/components/home/CallBackRequestForm";
 import { ImpactSection } from "@/components/home/ImpactSection";
-import { QuickLinks } from "@/components/home/QuickLinks";
+import { FeatureGrid } from "@/components/home/FeatureGrid";
+import { MissionQuoteRow } from "@/components/home/MissionQuoteRow";
 import { directoryMembers } from "@/lib/directory";
 
 const foundingYear = 1959;
@@ -14,6 +15,17 @@ const yearsServing = new Date().getFullYear() - foundingYear;
 const nextEvent = {
   name: "Annual Award Ceremony",
   date: "TBC",
+};
+
+const statIconProps = {
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.75,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
 };
 
 export default function Home() {
@@ -52,92 +64,88 @@ export default function Home() {
             >
               Become a Member
             </Link>
-            <a
-              href="#call-back"
+            <Link
+              href="/directory"
               className="rounded-full border-2 border-white px-7 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-brand-primary"
             >
-              Request a Call Back
-            </a>
+              Business Directory
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Stat bar — overlaps the hero's bottom edge. Years-serving and next
-          event are real; member/jobs counts are flagged placeholders, not
-          invented figures — send real numbers and they drop straight in. */}
+      {/* Stat bar — overlaps the hero's bottom edge. Years-serving is real;
+          member/jobs counts are flagged placeholders, not invented figures.
+          Next event shows TBC — the only date on file already passed. */}
       <div className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
-        <div className="grid grid-cols-2 gap-4 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-4 sm:p-8">
-          <div className="text-center sm:border-r sm:border-white/10">
-            <p className="text-3xl font-bold text-white sm:text-4xl">
+        <div className="grid grid-cols-2 gap-6 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-4 sm:p-8">
+          <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
+            <svg {...statIconProps} className="text-brand-accent">
+              <rect x="3" y="4" width="18" height="17" rx="2" />
+              <path d="M3 9h18M8 3v4M16 3v4" />
+            </svg>
+            <p className="mt-2 text-3xl font-bold text-white sm:text-4xl">
               {yearsServing}+
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Years serving Greater Tzaneen
+              Years Serving Tzaneen
             </p>
           </div>
-          <div className="text-center sm:border-r sm:border-white/10">
-            <p className="text-3xl font-bold text-brand-accent sm:text-4xl">
+          <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
+            <svg {...statIconProps} className="text-brand-accent">
+              <path d="M17 20h5v-2a4 4 0 0 0-3-3.87" />
+              <path d="M9 20H4v-2a4 4 0 0 1 3-3.87" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <p className="mt-2 text-3xl font-bold text-brand-accent sm:text-4xl">
               [NEEDS CONTENT]
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Member businesses
+              Member Businesses
             </p>
           </div>
-          <div className="text-center sm:border-r sm:border-white/10">
-            <p className="text-3xl font-bold text-brand-accent sm:text-4xl">
+          <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
+            <svg {...statIconProps} className="text-brand-accent">
+              <rect x="3" y="7" width="18" height="13" rx="2" />
+              <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
+            <p className="mt-2 text-3xl font-bold text-brand-accent sm:text-4xl">
               [NEEDS CONTENT]
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Jobs supported
+              Jobs Supported
             </p>
           </div>
-          <div className="text-center">
-            <p className="text-2xl font-bold text-white sm:text-3xl">
+          <div className="flex flex-col items-center text-center">
+            <svg {...statIconProps} className="text-brand-accent">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M3 10h18M8 3v4M16 3v4" />
+            </svg>
+            <p className="mt-2 text-2xl font-bold text-white sm:text-3xl">
               {nextEvent.date}
             </p>
             <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-              Next event: {nextEvent.name}
+              Next Event: {nextEvent.name}
             </p>
           </div>
         </div>
       </div>
 
-      <QuickLinks />
-
-      {/* Tagline + contact strip */}
-      <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 pt-16 pb-16 sm:px-6">
-          <blockquote className="border-l-4 border-brand-accent pl-6 text-xl leading-relaxed text-brand-ink sm:text-2xl">
-            &ldquo;We are a dynamic business association that supports local
-            businesses and their role in the economic prosperity of Greater
-            Tzaneen, through advocacy, networking, representation and
-            information sharing.&rdquo;
-          </blockquote>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="tel:+27832809723"
-              className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-primary shadow-sm transition-colors hover:text-brand-accent"
-            >
-              083 280 9723
-            </a>
-            <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-primary shadow-sm">
-              Mon &ndash; Fri, 09h00 &ndash; 16h00
-            </span>
-          </div>
-        </div>
-      </section>
+      <FeatureGrid />
 
       <ImpactSection />
 
       {/* Call Back Request */}
       <section id="call-back" className="scroll-mt-20 bg-brand-cream">
-        <div className="mx-auto max-w-md px-4 pb-20 sm:px-6">
+        <div className="mx-auto max-w-md px-4 py-16 sm:px-6">
           <div className="rounded-3xl bg-white p-8 shadow-lg shadow-brand-primary/5">
             <CallBackRequestForm />
           </div>
         </div>
       </section>
+
+      <MissionQuoteRow />
 
       {/* Trusted by — real confirmed member names. No logo image files
           exist yet, so these render as styled text wordmarks rather than

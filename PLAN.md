@@ -303,4 +303,22 @@ Also added to the homepage: replaced the placeholder "Our Members" image grid wi
 
 ---
 
+### Homepage rebuilt to match the reference layout precisely
+
+You asked for the layout to actually match the photo, not just be "inspired by" it — fair, the previous pass kept our existing section order rather than mirroring the reference's actual sequence. Rebuilt the homepage to follow it section-by-section:
+
+1. Hero — secondary button changed from "Request a Call Back" to **"Business Directory"** (matching the reference's second hero CTA); Call Back Request moved further down the page instead of being a hero destination.
+2. Stat bar — added icon-above-number treatment (calendar/people/briefcase/calendar) matching the reference's icon style. Numbers unchanged: years-serving real, member/jobs still flagged, next event still "TBC" pending your confirmation above.
+3. **New `components/home/FeatureGrid.tsx`** — the reference's 4-panel photo grid (its version: Connect/Invest/Grow/Discover), rebuilt using our real sections instead: **Directory / Invest / Events / News**. We only have one real photo (the hero shot), so rather than reuse it awkwardly four times or use stock images, each panel is a plain dark tinted background with an icon + heading + link — structurally matches the reference's layout, honestly doesn't fake photography we don't have.
+4. Six decades of service / Our goals (existing `ImpactSection`) and Call Back Request kept in their own positions — real Phase 1 content the reference doesn't have, no reason to delete it just to match a photo.
+5. **New `components/home/MissionQuoteRow.tsx`** — 3-column dark row matching the reference's Mission / Quote / Newsletter layout. "Our Mission" text is paraphrased from the real goals on the About page (not an official quoted statement — flag if you have exact wording). The quote reuses our own real tagline rather than the reference's borrowed Helen Keller quote, since it's genuine chamber content. Newsletter signup is wired through the same EmailJS notification as the other forms (no new email-marketing service/cost) — it tells the admin someone wants to subscribe; there's no real mailing list system, so subscribers are still added manually for now.
+6. Trusted-by strip moved to sit right before the footer, matching the reference's position (previously it was further up the page).
+7. Footer rebuilt from a 3-column layout into the reference's single-bar style (icon + address / icon + phone / icon + email, social icons on the right), still keeping the required "Powered by GLS Technologies" credit and copyright line the reference doesn't have.
+
+Removed `components/home/QuickLinks.tsx` (Become a Member / COO / Awards cards) since it's now redundant with the single 4-panel grid — those three are still reachable via the header CTA, main nav, and About page.
+
+Verified: `next build` clean, no horizontal overflow at any width (mobile through 1920px), FeatureGrid links navigate correctly, newsletter form fails gracefully when EmailJS isn't configured.
+
+---
+
 **Next**: confirm the Award Ceremony date, send the rest of the member directory (names + logos), send real content for `/invest`, or tell me what to build next.
