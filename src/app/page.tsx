@@ -77,7 +77,7 @@ export default function Home() {
       {/* Stat bar — overlaps the hero's bottom edge. Years-serving is real;
           member/jobs counts are flagged placeholders, not invented figures.
           Next event shows TBC — the only date on file already passed. */}
-      <div className="relative z-10 mx-auto -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
+      <div className="relative z-10 mx-auto -mb-0.5 -mt-14 max-w-6xl px-4 sm:-mt-16 sm:px-6">
         <div className="grid grid-cols-2 gap-6 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-4 sm:p-8">
           <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
             <svg {...statIconProps} className="text-brand-accent">
