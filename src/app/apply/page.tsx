@@ -36,11 +36,8 @@ export default function ApplyPage() {
               What happens when this goes live
             </p>
             <p>
-              When someone submits this form, it goes straight to the admin
-              by email and WhatsApp — no database, nothing stored on the
-              site. This only works once the admin has set up EmailJS
-              and/or CallMeBot (see PLAN.md); until then, submitting shows
-              an error asking the applicant to call 083 280 9723 instead.
+              When this form is submitted, it will be sent via email to the
+              admin once the site is live.
             </p>
           </div>
 
