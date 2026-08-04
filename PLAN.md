@@ -330,3 +330,21 @@ You sent a photo of a business handshake (`public/images/feature-directory.png`)
 ---
 
 **Next**: send photos for the Invest/Events/News panels, confirm the Award Ceremony date, send the rest of the member directory (names + logos), send real content for `/invest`, or tell me what to build next.
+
+---
+
+### COO page: placeholder "Apply Now" link replaced with real call/email
+
+You flagged (via a screenshot of the live COO page) that the "Apply Now (link coming soon)" button was a dead-end — the eCOO SmartAdmin application platform's URL was never confirmed, so it had been left as a `NeedsContent`-flagged placeholder. You said: if someone wants a COO, they should just call or email the Chamber directly instead of waiting on a link.
+
+Changes to `src/app/certificate-of-origin/page.tsx`:
+- Replaced the placeholder `ApplyNowButton` component with `ApplyContactButtons` — two real buttons: **"Call 083 280 9723"** (`tel:` link) and **"Email to Apply"** (`mailto:` link, pre-filled subject line), both using real contact details already confirmed elsewhere on the site.
+- Updated both places the button appears (intro section and after the step-by-step process) to use the new component.
+- Updated the "Application submission" step and the "How do I apply for a COO?" FAQ answer to describe calling/emailing instead of referencing the SmartAdmin platform.
+- Removed the bottom `NeedsContent` note asking for the SmartAdmin URL — no longer waiting on it, since the page doesn't depend on that link anymore.
+
+Verified: lint and `next build` both clean, screenshots at 1280px confirm both button locations render correctly and the FAQ section now ends straight into the footer with no leftover placeholder text.
+
+---
+
+**Next**: same open items as above — Invest/Events/News photos, Award Ceremony date confirmation, rest of the member directory, real `/invest` content.

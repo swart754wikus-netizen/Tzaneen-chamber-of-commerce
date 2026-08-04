@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { NeedsContent } from "@/components/ui/NeedsContent";
 import { FaqAccordion } from "@/components/coo/FaqAccordion";
 
 export const metadata: Metadata = {
@@ -24,7 +23,8 @@ const steps = [
   },
   {
     title: "Application submission",
-    detail: "Access the CO application platform (eCOO SmartAdmin).",
+    detail:
+      "Call 083 280 9723 or email admin@tzaneenchamber.org.za to start your application with the Chamber.",
   },
   {
     title: "Filling out the application",
@@ -67,7 +67,7 @@ const faqItems = [
   {
     question: "How do I apply for a COO?",
     answer:
-      "Prepare your export invoice and proof of origin, then submit your application through eCOO SmartAdmin with a full description of your goods, origin and destination. Upload your supporting documents and submit with the applicable fee — the Chamber reviews your application and issues the CO once verified.",
+      "Call the Chamber on 083 280 9723 or email admin@tzaneenchamber.org.za with your export invoice, proof of origin, and a description of your goods. The Chamber will guide you through the rest of the process.",
   },
   {
     question: "Can non-members apply for a COO?",
@@ -81,14 +81,22 @@ const faqItems = [
   },
 ];
 
-function ApplyNowButton() {
+function ApplyContactButtons() {
   return (
-    <span
-      className="inline-block cursor-default rounded-full border-2 border-dashed border-brand-primary/30 px-7 py-3 font-semibold text-brand-primary/40"
-      title="Links to the eCOO SmartAdmin platform — real URL needed from the client"
-    >
-      Apply Now (link coming soon)
-    </span>
+    <div className="flex flex-wrap gap-4">
+      <a
+        href="tel:+27832809723"
+        className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
+      >
+        Call 083 280 9723
+      </a>
+      <a
+        href="mailto:admin@tzaneenchamber.org.za?subject=Certificate%20of%20Origin%20Application"
+        className="rounded-full border-2 border-brand-primary px-7 py-3 font-semibold text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
+      >
+        Email to Apply
+      </a>
+    </div>
   );
 }
 
@@ -112,7 +120,7 @@ export default function CertificateOfOriginPage() {
             trade.
           </p>
           <div className="mt-6">
-            <ApplyNowButton />
+            <ApplyContactButtons />
           </div>
         </div>
       </section>
@@ -287,7 +295,7 @@ export default function CertificateOfOriginPage() {
           </div>
 
           <div className="mt-6">
-            <ApplyNowButton />
+            <ApplyContactButtons />
           </div>
         </div>
       </section>
@@ -299,16 +307,6 @@ export default function CertificateOfOriginPage() {
           </h2>
           <div className="mt-6">
             <FaqAccordion items={faqItems} />
-          </div>
-
-          <div className="mt-10">
-            <NeedsContent>
-              <p>
-                The eCOO SmartAdmin application link isn&apos;t known yet —
-                send it over and the &quot;Apply Now&quot; buttons on this
-                page go live immediately.
-              </p>
-            </NeedsContent>
           </div>
         </div>
       </section>
