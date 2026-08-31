@@ -1,16 +1,20 @@
-# Tzaneen Chamber of Commerce — Website Plan (Phase 2, in progress)
+# Tzaneen Chamber of Commerce — Website Plan (Phase 3, in progress)
 
-Status: Original Phase 1 scope (7 pages) is done. **Phase 1's original
-boundaries no longer apply** — you asked for Directory, Invest, and Events
-to be actually built (not just styled), expanding scope beyond what was
-originally planned. See "Scope expansion: Directory, Invest, Events" near
-the bottom for what that means and what's still needed.
+Status: Phase 1 (7 core pages) and Phase 2 (Directory/Invest/Events,
+homepage rebuild, real photos) are done. **Firebase is back** — see
+"Phase 3: Self-service admin area" near the bottom — this time to power a
+password-protected `/admin` area so the Chamber's admin can manage events,
+RSVPs, the member directory, Exco bios, and documents herself, without
+needing code changes for every update.
 
-**Firebase/Firestore was fully removed** — see "Architecture change:
-Firebase/Firestore dropped entirely" further down. Anything mentioning
-Firestore schemas, `firestore.rules`, or Firebase env vars elsewhere in
-this doc is historical/outdated — kept as a record of how we got here,
-not as current instructions.
+Historical note: Firebase/Firestore was removed early on (see "Architecture
+change: Firebase/Firestore dropped entirely" below) when the only use for
+it was form submissions that are better served by direct email/WhatsApp
+notification — that reasoning still holds, and forms still work that way.
+It came back later for a different, legitimate reason: self-service content
+management. Read the Phase 3 section for what's current; treat the
+Firestore schema/rules details in the "dropped entirely" section as
+superseded history, not instructions.
 
 ## 0. Assumptions & open questions (please confirm/answer)
 
@@ -344,6 +348,58 @@ Changes to `src/app/certificate-of-origin/page.tsx`:
 - Removed the bottom `NeedsContent` note asking for the SmartAdmin URL — no longer waiting on it, since the page doesn't depend on that link anymore.
 
 Verified: lint and `next build` both clean, screenshots at 1280px confirm both button locations render correctly and the FAQ section now ends straight into the footer with no leftover placeholder text.
+
+---
+
+## Phase 3: Self-service admin area (Firebase is back — this time for a real reason)
+
+You forwarded a wishlist from the person who'll actually run this site day-to-day, asking whether she'll be able to make updates herself once Exco approves. Short answer: yes, but it means bringing back a real backend — the "no database" decision from earlier in this document was right for a site that only sends forms by email/WhatsApp, but it can't support someone logging in and editing content herself. That needs a database and a login. **Firebase (Firestore + Storage + Auth) is back**, this time as the engine behind a password-protected `/admin` area, not as a place forms silently vanish into.
+
+**Nothing about the public-facing forms changed.** Call Back Request, Contact Us, and (mostly) Membership Application still work exactly as before — straight to email/WhatsApp, fail fast with a clear error if neither is configured. The only addition: a submitted Membership Application is *also* saved to Firestore now (best-effort, never blocks the actual submission) so it shows up in the new admin screen for review/export.
+
+### What she asked for, and what got built
+
+1. **"I must be able to create an RSVP link for each luncheon, with Name/Surname/Phone/Email/Business/Member status/headcount, and download it as Excel."**
+   Every event now has an optional RSVP form (`/events/[id]`). Submissions land in `/admin/events/[id]/rsvps`, where they can be reviewed in a table and downloaded with one click. That download is a **CSV file** (Excel opens it natively) rather than a real `.xlsx` — the popular `xlsx` npm package has unresolved prototype-pollution/ReDoS security advisories with no fix available, and a plain CSV needed zero risky dependencies to build. Same CSV export exists for Membership Applications at `/admin/applications`.
+
+2. **"Event Calendar with the year's program, where I can upload photos."**
+   Events are now fully admin-managed at `/admin/events` — create/edit/delete, one photo per event, and a toggle for whether RSVP is open. The public `/events` page reads live from this instead of a static list you'd need me to edit in code.
+
+3. **"Upload documents (letters) as PDF that nobody can download."**
+   `/admin/documents` lets her upload PDFs, which show up at `/documents` as **view-only** (embedded viewer, no direct download link or button). Important honesty note, flagged before building this: this is a *soft* deterrent, not real access control. The file still lives at a public URL (that's what lets the embed render for every visitor without requiring visitor accounts), so someone determined enough could find and save it via browser dev tools. True per-visitor access control would need visitor logins, which wasn't asked for and would be a much bigger feature. If that limitation isn't good enough for sensitive documents, say so and we can talk about locking it down harder.
+
+4. **"Links to social platforms."**
+   Still just placeholders in the footer (Facebook/Instagram/LinkedIn) — no real profile URLs have been sent yet. Send them and they go live in one line.
+
+5. **Contact details: 083 280 9723, admin@tzaneenchamber.org.za, no office address, hours 08:00–17:00 Mon–Fri.**
+   This directly contradicted what was already on the site — the footer and Contact page previously showed "Tzaneen Showground, Tzaneen, 0850" (pulled from the old site's real content) plus an embedded Google Map, and hours read 09:00–16:00. Both removed/corrected per her more recent, more authoritative instruction: no address, no map section, hours now 08:00–17:00.
+
+6. **"I must be able to update the member count so visitors see how many members the Chamber has."**
+   Rather than a manually-typed number (which drifts out of sync with reality), the Directory itself is now the source of truth: `/admin/members` is a full add/edit/remove screen (name, category, logo upload), and the homepage's "Member Businesses" stat is simply the live count of that collection. The "Trusted by" strip and `/directory` search page both read from the same collection. This also replaces the earlier ask to "send me the rest of your member list" — she can add them herself now.
+
+7. **"Exco tab with name, title, photo — editable when someone resigns."**
+   New `/exco` page + `/admin/exco` manager. Add/edit/remove, photo upload, a manual display-order number (lower shows first). Added to the main nav.
+
+8. **"Constitution upload."**
+   A single-file upload at the top of `/admin/documents`, shown as a normal downloadable link on `/documents` — kept deliberately separate from the "view-only" letters above, since nothing was said about restricting the Constitution itself.
+
+### What she'll need to do to actually use this
+
+None of this works until a real Firebase project exists — I can't create one on your/her behalf, it needs a Google account:
+
+1. Go to [console.firebase.google.com](https://console.firebase.google.com), create a free project.
+2. Enable **Authentication → Sign-in method → Email/Password**, then add her as a user (her email + a password she chooses) — that's her admin login at `/admin/login`.
+3. Enable **Firestore Database** (production mode is fine — the rules below lock it down) and **Storage**.
+4. Deploy the security rules already written in this repo: `firestore.rules` and `storage.rules` (via the Firebase CLI, `firebase deploy --only firestore:rules,storage:rules`, or pasted into the console's Rules tab). Short version of what they do: anyone can *read* events/directory/Exco/document titles and *submit* an RSVP or application, but only a signed-in admin can create/edit/delete anything, or read the list of RSVPs/applications.
+5. In Project Settings → General → Your apps, add a Web app and copy its config values into `.env.local` (see the updated `.env.local.example`) — and the same six `NEXT_PUBLIC_FIREBASE_*` values as Vercel environment variables so the live site picks them up.
+
+Until that's done, every page degrades gracefully rather than breaking: `/events`, `/directory`, `/exco`, `/documents` show a plain "not set up yet" message instead of erroring, and `/admin/login` shows a clear "Firebase hasn't been configured" message instead of hanging. Verified via lint, `next build`, and Playwright click-throughs (login-not-configured error, admin route guard redirecting to `/admin/login`, form fail-fast messages) — all clean.
+
+### One header side effect
+
+Adding the Exco nav item made 10 items in the main nav, which pushed the header back into the same kind of overflow issue fixed earlier (this time right at exactly 1280px). Fixed by tightening the nav item spacing slightly (`gap-5`→`gap-4`); reverified clean at 390/768/1024/1152/1279/1280/1366/1440/1920px on every page, not just the homepage.
+
+**Next**: create the Firebase project and send confirmation once done (or ask if you'd like a hand walking through it live) — everything above is already built and waiting on real credentials. Also still outstanding: real social media URLs, and the still-unconfirmed Award Ceremony date from earlier in this document.
 
 ---
 

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const socialLinks = [
   { label: "Facebook", href: null },
   { label: "Instagram", href: null },
@@ -22,13 +24,6 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         <div className="flex flex-col gap-4 text-sm text-white/80 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
-            <span className="flex items-center gap-2">
-              <svg {...iconProps} aria-hidden>
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              Tzaneen Showground, Tzaneen, 0850
-            </span>
             <a href="tel:+27832809723" className="flex items-center gap-2 hover:text-brand-accent">
               <svg {...iconProps} aria-hidden>
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
@@ -45,6 +40,13 @@ export function Footer() {
               </svg>
               admin@tzaneenchamber.org.za
             </a>
+            <span className="flex items-center gap-2">
+              <svg {...iconProps} aria-hidden>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+              Mon–Fri, 08:00–17:00
+            </span>
           </div>
 
           {/* Real profile URLs not yet supplied — links intentionally
@@ -56,6 +58,12 @@ export function Footer() {
               </span>
             ))}
           </div>
+        </div>
+
+        <div className="mt-4 border-t border-white/10 pt-4 text-sm">
+          <Link href="/documents" className="text-white/70 hover:text-brand-accent">
+            Documents & Constitution
+          </Link>
         </div>
 
         <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs text-white/60 sm:flex-row">

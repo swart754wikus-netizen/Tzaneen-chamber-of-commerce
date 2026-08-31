@@ -1,0 +1,18 @@
+rules_version = '2';
+
+// Uploaded files (event photos, member/Exco logos & photos, documents,
+// the Constitution) are served as public download URLs so the site can
+// display/embed them for every visitor — only a signed-in admin can
+// upload, replace or delete anything. Note: because the download URLs are
+// public, the "view-only" documents page is a UI-level deterrent (no
+// download link/button shown), not a hard access restriction — anyone
+// with the direct file URL can still open it. That limit was flagged
+// up front; true per-user access control would need visitor accounts.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

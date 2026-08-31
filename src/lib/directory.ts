@@ -1,34 +1,61 @@
-export type DirectoryCategory =
-  | "Agriculture"
-  | "Financial Services"
-  | "Technology & Telecommunications"
-  | "Tourism & Hospitality";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import { db, isFirebaseConfigured } from "@/lib/firebase";
 
 export type DirectoryMember = {
+  id: string;
   name: string;
-  category: DirectoryCategory;
+  category: string;
+  logoUrl?: string;
 };
 
-// Confirmed real members (you verified these names). Categories are our
-// best-effort based on public knowledge of these companies, not chamber-
-// supplied data — flag if any is wrong. This is a partial list: only the
-// 8 names shown in the reference image are here, not the full ~500-member
-// roster the reference implies. Logo image files are also still needed —
-// see the NeedsContent note on the Directory page.
-export const directoryMembers: DirectoryMember[] = [
-  { name: "ZZ2", category: "Agriculture" },
-  { name: "Westfalia", category: "Agriculture" },
-  { name: "SGK", category: "Agriculture" },
-  { name: "TWK Agri", category: "Agriculture" },
-  { name: "Agri Technovation", category: "Agriculture" },
-  { name: "FNB", category: "Financial Services" },
-  { name: "Standard Bank", category: "Financial Services" },
-  { name: "Vodacom Business", category: "Technology & Telecommunications" },
-];
-
-export const directoryCategories: DirectoryCategory[] = [
+// Suggested categories shown in the admin form's datalist — not an
+// enforced enum, since the admin can type any category she needs.
+export const directoryCategorySuggestions = [
   "Agriculture",
   "Financial Services",
   "Technology & Telecommunications",
   "Tourism & Hospitality",
+  "Retail & Wholesale",
+  "Professional Services",
+  "Manufacturing & Industry",
+  "Construction & Property",
+  "Transport & Logistics",
 ];
+
+function assertFirestoreReady() {
+  if (!isFirebaseConfigured || !db) {
+    throw new Error("Firebase isn't configured yet.");
+  }
+}
+
+export async function getAllMembers(): Promise<DirectoryMember[]> {
+  assertFirestoreReady();
+  const snapshot = await getDocs(
+    query(collection(db!, "members"), orderBy("name", "asc"))
+  );
+  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }) as DirectoryMember);
+}
+
+export async function createMember(input: Omit<DirectoryMember, "id">) {
+  assertFirestoreReady();
+  await addDoc(collection(db!, "members"), input);
+}
+
+export async function updateMember(id: string, input: Omit<DirectoryMember, "id">) {
+  assertFirestoreReady();
+  await updateDoc(doc(db!, "members", id), input);
+}
+
+export async function deleteMember(id: string) {
+  assertFirestoreReady();
+  await deleteDoc(doc(db!, "members", id));
+}

@@ -32,7 +32,7 @@ export function Header() {
         </Link>
 
         <nav className="hidden xl:block" aria-label="Primary">
-          <ul className="flex items-center gap-4 text-xs font-semibold uppercase xl:gap-5 xl:text-sm">
+          <ul className="flex items-center gap-3 text-xs font-semibold uppercase xl:gap-4 xl:text-sm">
             {navLinks.map((link) => {
               const active =
                 link.href &&

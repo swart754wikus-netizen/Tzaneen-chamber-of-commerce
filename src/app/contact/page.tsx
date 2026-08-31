@@ -51,35 +51,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <dt className="text-sm font-semibold uppercase tracking-wide text-brand-ink/50">
-                  Address
-                </dt>
-                <dd className="mt-1">Tzaneen Showground, Tzaneen, 0850</dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold uppercase tracking-wide text-brand-ink/50">
                   Hours
                 </dt>
-                <dd className="mt-1">Mon &ndash; Fri, 09:00 &ndash; 16:00</dd>
+                <dd className="mt-1">Mon &ndash; Fri, 08:00 &ndash; 17:00</dd>
                 <dd>Sat &ndash; Sun, closed</dd>
               </div>
             </dl>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-brand-cream">
-        <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6">
-          <h2 className="text-xl font-bold text-brand-primary">
-            Find us
-          </h2>
-          <div className="mt-6 overflow-hidden rounded-3xl shadow-sm">
-            <iframe
-              title="Map showing Tzaneen Showground, Tzaneen, 0850"
-              src="https://maps.google.com/maps?q=Tzaneen%20Showground%2C%20Tzaneen%2C%200850&output=embed"
-              className="h-96 w-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
           </div>
         </div>
       </section>
