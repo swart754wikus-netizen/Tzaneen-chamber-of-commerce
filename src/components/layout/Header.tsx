@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,15 +18,13 @@ export function Header() {
           className="flex items-center gap-3 text-brand-primary"
           onClick={() => setMenuOpen(false)}
         >
-          {/* Real logo asset (circular Tzaneen Chamber / Sakekamer seal) not
-              yet supplied — placeholder mark stands in until it is. */}
-          <span
-            aria-hidden
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-dashed border-brand-primary/40 text-[10px] font-semibold leading-tight"
-            title="Logo placeholder — real logo file needed"
-          >
-            TCC
-          </span>
+          <Image
+            src="/images/logo.jpg"
+            alt="Tzaneen Chamber of Commerce"
+            width={40}
+            height={40}
+            className="h-10 w-10 shrink-0 rounded-full"
+          />
           <span className="whitespace-nowrap text-base font-bold tracking-tight xl:text-lg">
             Tzaneen Chamber of Commerce
           </span>
