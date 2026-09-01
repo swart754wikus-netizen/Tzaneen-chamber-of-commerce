@@ -1,8 +1,12 @@
 import Link from "next/link";
 
 const socialLinks = [
-  { label: "Facebook", href: null },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61590463737603",
+  },
   { label: "Instagram", href: "https://www.instagram.com/tzaneenchamber" },
+  { label: "TikTok", href: "https://www.tiktok.com/@tzaneen.chamber" },
   { label: "LinkedIn", href: null },
 ];
 
