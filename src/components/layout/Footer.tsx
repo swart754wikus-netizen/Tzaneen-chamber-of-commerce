@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const socialLinks = [
   { label: "Facebook", href: null },
-  { label: "Instagram", href: null },
+  { label: "Instagram", href: "https://www.instagram.com/tzaneenchamber" },
   { label: "LinkedIn", href: null },
 ];
 
@@ -49,14 +49,26 @@ export function Footer() {
             </span>
           </div>
 
-          {/* Real profile URLs not yet supplied — links intentionally
-              inert until provided. */}
+          {/* Facebook/LinkedIn profile URLs not yet supplied — those two
+              stay inert until provided. */}
           <div className="flex items-center gap-4">
-            {socialLinks.map((social) => (
-              <span key={social.label} className="text-white/40" title="Profile URL needed">
-                {social.label}
-              </span>
-            ))}
+            {socialLinks.map((social) =>
+              social.href ? (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-brand-accent"
+                >
+                  {social.label}
+                </a>
+              ) : (
+                <span key={social.label} className="text-white/40" title="Profile URL needed">
+                  {social.label}
+                </span>
+              )
+            )}
           </div>
         </div>
 
