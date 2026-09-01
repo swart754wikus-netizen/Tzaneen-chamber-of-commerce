@@ -11,8 +11,12 @@ export function downloadCsv(filename: string, rows: Record<string, string>[]) {
     headers.map(escape).join(","),
     ...rows.map((row) => headers.map((h) => escape(row[h] ?? "")).join(",")),
   ];
-  // BOM so Excel detects UTF-8 correctly instead of mangling accents.
-  const csv = "﻿" + lines.join("\r\n");
+  // BOM so Excel detects UTF-8 correctly instead of mangling accents. The
+  // "sep=," line right after is an Excel-only directive that forces it to
+  // split on commas — without it, Excel installs set to use ";" as the
+  // list separator (common in South Africa) dump every row into one column
+  // instead of splitting it into cells.
+  const csv = "﻿sep=,\r\n" + lines.join("\r\n");
 
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
