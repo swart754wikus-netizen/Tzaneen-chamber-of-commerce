@@ -10,6 +10,7 @@ export default function AdminEventsPage() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   function refresh() {
     getAllEvents()
@@ -23,6 +24,18 @@ export default function AdminEventsPage() {
     if (!confirm("Delete this event? This cannot be undone.")) return;
     await deleteEvent(id);
     refresh();
+  }
+
+  async function handleCopyLink(id: string) {
+    const url = `${window.location.origin}/events/${id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      window.prompt("Copy this link:", url);
+      return;
+    }
+    setCopiedId(id);
+    setTimeout(() => setCopiedId((current) => (current === id ? null : current)), 2000);
   }
 
   return (
@@ -84,6 +97,12 @@ export default function AdminEventsPage() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3 text-sm font-semibold">
+                  <button
+                    onClick={() => handleCopyLink(event.id)}
+                    className="text-brand-primary hover:text-brand-accent-dark"
+                  >
+                    {copiedId === event.id ? "Link copied!" : "Copy Link"}
+                  </button>
                   <Link
                     href={`/admin/events/${event.id}/rsvps`}
                     className="text-brand-primary hover:text-brand-accent-dark"
