@@ -7,7 +7,6 @@ const socialLinks = [
   },
   { label: "Instagram", href: "https://www.instagram.com/tzaneenchamber" },
   { label: "TikTok", href: "https://www.tiktok.com/@tzaneen.chamber" },
-  { label: "LinkedIn", href: null },
 ];
 
 const iconProps = {
