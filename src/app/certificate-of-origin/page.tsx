@@ -39,7 +39,7 @@ const steps = [
   {
     title: "Review and submission",
     detail:
-      "Review your application for accuracy and submit it along with the appropriate fee (R200 for members, R300 for non-members).",
+      "Review your application for accuracy and submit it along with the appropriate fee (R250 for members, R375 for non-members).",
   },
   {
     title: "Chamber review",
@@ -72,7 +72,7 @@ const faqItems = [
   {
     question: "Can non-members apply for a COO?",
     answer:
-      "Yes — all exporters, whether members or non-members of the Tzaneen Chamber of Commerce, are eligible to apply for a COO. The cost is R200 per application for members and R300 for non-members.",
+      "Yes — all exporters, whether members or non-members of the Tzaneen Chamber of Commerce, are eligible to apply for a COO. The cost is R250 per application for members and R375 for non-members.",
   },
   {
     question: "How long does it take to process a COO application?",
@@ -228,11 +228,11 @@ export default function CertificateOfOriginPage() {
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-              <p className="text-3xl font-bold text-brand-primary">R200</p>
+              <p className="text-3xl font-bold text-brand-primary">R250</p>
               <p className="mt-1 text-sm text-brand-ink/70">Per application, for members</p>
             </div>
             <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-              <p className="text-3xl font-bold text-brand-primary">R300</p>
+              <p className="text-3xl font-bold text-brand-primary">R375</p>
               <p className="mt-1 text-sm text-brand-ink/70">Per application, for non-members</p>
             </div>
           </div>
