@@ -43,7 +43,7 @@ export function ExcoGrid() {
       {members.map((member) => (
         <div
           key={member.id}
-          className="rounded-2xl border border-brand-primary/10 bg-white p-6 text-center shadow-sm"
+          className="rounded-2xl border border-brand-primary/10 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
         >
           <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-full bg-brand-cream">
             {member.photoUrl ? (

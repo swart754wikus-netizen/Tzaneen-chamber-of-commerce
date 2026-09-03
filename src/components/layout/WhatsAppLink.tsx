@@ -14,7 +14,7 @@ export function WhatsAppLink({ message }: { message: string }) {
       href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-semibold text-white transition-transform hover:scale-105"
+      className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-semibold text-white shadow-md shadow-[#25D366]/20 transition-all duration-300 hover:scale-105 hover:shadow-lg"
     >
       <WhatsAppIcon />
       Apply via WhatsApp

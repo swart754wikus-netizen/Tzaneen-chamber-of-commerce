@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { DirectorySearch } from "@/components/directory/DirectorySearch";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Business Directory",
@@ -16,11 +17,13 @@ export default function DirectoryPage() {
         description="Search our directory of Chamber member businesses."
       />
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-          <DirectorySearch />
-        </div>
-      </section>
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+            <DirectorySearch />
+          </div>
+        </section>
+      </Reveal>
     </>
   );
 }

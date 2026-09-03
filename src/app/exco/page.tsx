@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ExcoGrid } from "@/components/exco/ExcoGrid";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Executive Committee",
@@ -16,11 +17,13 @@ export default function ExcoPage() {
         description="The volunteers leading the Tzaneen Chamber of Commerce."
       />
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-          <ExcoGrid />
-        </div>
-      </section>
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+            <ExcoGrid />
+          </div>
+        </section>
+      </Reveal>
     </>
   );
 }

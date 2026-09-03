@@ -148,7 +148,10 @@ export function EventsCalendar() {
         ) : (
           <ul className="mt-4 space-y-4">
             {eventsThisMonth.map((event) => (
-              <li key={event.id} className="rounded-2xl bg-brand-cream p-6 shadow-sm">
+              <li
+                key={event.id}
+                className="rounded-2xl bg-brand-cream p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
                 <p className="text-sm font-semibold uppercase tracking-wide text-brand-accent-dark">
                   {new Date(event.date).toLocaleDateString("en-ZA", {
                     weekday: "long",

@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { NeedsContent } from "@/components/ui/NeedsContent";
 import { MembershipApplicationForm } from "@/components/apply/MembershipApplicationForm";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "New Membership Application",
@@ -18,6 +19,7 @@ export default function ApplyPage() {
         description="Join a network representing Greater Tzaneen businesses through advocacy, networking and representation."
       />
 
+      <Reveal>
       <section className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
           <div className="rounded-3xl bg-brand-cream p-8 shadow-sm">
@@ -53,6 +55,7 @@ export default function ApplyPage() {
           </div>
         </div>
       </section>
+      </Reveal>
     </>
   );
 }

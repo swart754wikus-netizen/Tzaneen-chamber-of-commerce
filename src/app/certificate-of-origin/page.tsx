@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { FaqAccordion } from "@/components/coo/FaqAccordion";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Certificate of Origin",
@@ -86,13 +87,13 @@ function ApplyContactButtons() {
     <div className="flex flex-wrap gap-4">
       <a
         href="tel:+27832809723"
-        className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
+        className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white shadow-md shadow-brand-accent/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-accent-dark hover:shadow-lg"
       >
         Call 083 280 9723
       </a>
       <a
         href="mailto:admin@tzaneenchamber.org.za?subject=Certificate%20of%20Origin%20Application"
-        className="rounded-full border-2 border-brand-primary px-7 py-3 font-semibold text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
+        className="rounded-full border-2 border-brand-primary px-7 py-3 font-semibold text-brand-primary transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-primary hover:text-white"
       >
         Email to Apply
       </a>
@@ -109,207 +110,221 @@ export default function CertificateOfOriginPage() {
         description="A Certificate of Origin affirms the birthplace of your exported goods — the Tzaneen Chamber of Commerce is accredited to issue them."
       />
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <p className="text-brand-ink/80">
-            In the realm of international trade, the Certificate of Origin
-            (COO) stands as a pivotal document, affirming the birthplace of
-            exported goods. As the Tzaneen Chamber of Commerce, we take pride
-            in our role of issuing these certificates, ensuring local
-            businesses seamlessly navigate the complex tapestry of global
-            trade.
-          </p>
-          <div className="mt-6">
-            <ApplyContactButtons />
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            Understanding the Certificate of Origin
-          </h2>
-          <p className="mt-4 text-brand-ink/80">
-            A Certificate of Origin is more than just a document; it&apos;s a
-            passport for goods traversing international borders. It certifies
-            that products exported from one country are wholly obtained,
-            produced, manufactured, or processed in a specific region. This
-            verification matters for a few reasons:
-          </p>
-          <ol className="mt-4 space-y-3">
-            {[
-              {
-                title: "Trade Compliance",
-                detail:
-                  "Many countries require a COO for customs clearance, ensuring goods meet the legal standards for importation.",
-              },
-              {
-                title: "Tariff Reductions",
-                detail:
-                  "Under various trade agreements, goods from certain countries are eligible for reduced tariffs — a COO can unlock these preferential rates.",
-              },
-              {
-                title: "Market Access",
-                detail:
-                  "Some markets are only accessible if goods meet specific origin criteria, which the COO proves.",
-              },
-            ].map((reason, i) => (
-              <li key={reason.title} className="flex gap-3 text-brand-ink/80">
-                <span className="font-bold text-brand-accent-dark">
-                  {i + 1}.
-                </span>
-                <span>
-                  <strong className="text-brand-primary">{reason.title}</strong>
-                  : {reason.detail}
-                </span>
-              </li>
-            ))}
-          </ol>
-
-          <p className="mt-6 text-brand-ink/80">
-            There are two primary types of Certificates of Origin:{" "}
-            <strong className="text-brand-primary">Non-Preferential COOs</strong>{" "}
-            (used for general export purposes, no tariff benefit) and{" "}
-            <strong className="text-brand-primary">Preferential COOs</strong>{" "}
-            (issued under specific trade agreements like SADC or the EU,
-            allowing reduced tariffs or exemptions).
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            The role of Tzaneen Chamber of Commerce
-          </h2>
-          <p className="mt-4 text-brand-ink/80">
-            Our accreditation and authority to issue Certificates of Origin
-            place us at a unique vantage point to support the local business
-            community in international trade. Our role encompasses:
-          </p>
-          <ul className="mt-4 space-y-3">
-            {[
-              {
-                title: "Verification and Authentication",
-                detail:
-                  "We rigorously verify the information provided by exporters to ensure compliance with international trade regulations.",
-              },
-              {
-                title: "Guidance and Support",
-                detail:
-                  "Our experienced team offers guidance and support, helping businesses understand the nuances of CO requirements.",
-              },
-              {
-                title: "Advocacy and Representation",
-                detail:
-                  "We represent the interests of local businesses, advocating for policies and practices that facilitate smoother, more efficient trade.",
-              },
-            ].map((role) => (
-              <li key={role.title} className="flex gap-3 text-brand-ink/80">
-                <span
-                  aria-hidden
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
-                />
-                <span>
-                  <strong className="text-brand-primary">{role.title}</strong>
-                  : {role.detail}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            Pricing
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-              <p className="text-3xl font-bold text-brand-primary">R250</p>
-              <p className="mt-1 text-sm text-brand-ink/70">Per application, for members</p>
-            </div>
-            <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-              <p className="text-3xl font-bold text-brand-primary">R375</p>
-              <p className="mt-1 text-sm text-brand-ink/70">Per application, for non-members</p>
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <p className="text-brand-ink/80">
+              In the realm of international trade, the Certificate of Origin
+              (COO) stands as a pivotal document, affirming the birthplace of
+              exported goods. As the Tzaneen Chamber of Commerce, we take pride
+              in our role of issuing these certificates, ensuring local
+              businesses seamlessly navigate the complex tapestry of global
+              trade.
+            </p>
+            <div className="mt-6">
+              <ApplyContactButtons />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            Eligibility and requirements
-          </h2>
-          <p className="mt-4 text-brand-ink/80">
-            All exporters, whether members or non-members of the Tzaneen
-            Chamber of Commerce, are eligible to apply for a COO. You&apos;ll
-            need:
-          </p>
-          <ul className="mt-4 space-y-3">
-            {requirements.map((req) => (
-              <li key={req} className="flex gap-3 text-brand-ink/80">
-                <span
-                  aria-hidden
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
-                />
-                <span>{req}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-brand-cream">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            Step-by-step application process
-          </h2>
-          <ol className="mt-6 space-y-4">
-            {steps.map((step, i) => (
-              <li key={step.title} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white">
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-semibold text-brand-primary">{step.title}</p>
-                  <p className="text-sm text-brand-ink/70">{step.detail}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
-            <p className="font-semibold text-brand-primary">
-              Processing time &amp; delivery
+      <Reveal>
+        <section className="bg-brand-cream">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              Understanding the Certificate of Origin
+            </h2>
+            <p className="mt-4 text-brand-ink/80">
+              A Certificate of Origin is more than just a document; it&apos;s a
+              passport for goods traversing international borders. It certifies
+              that products exported from one country are wholly obtained,
+              produced, manufactured, or processed in a specific region. This
+              verification matters for a few reasons:
             </p>
-            <p className="mt-2 text-sm text-brand-ink/70">
-              Processing is electronic and immediate — same day. Upon
-              approval, your Certificate of Origin is issued electronically as
-              a digital copy, widely accepted by customs authorities
-              worldwide.
+            <ol className="mt-4 space-y-3">
+              {[
+                {
+                  title: "Trade Compliance",
+                  detail:
+                    "Many countries require a COO for customs clearance, ensuring goods meet the legal standards for importation.",
+                },
+                {
+                  title: "Tariff Reductions",
+                  detail:
+                    "Under various trade agreements, goods from certain countries are eligible for reduced tariffs — a COO can unlock these preferential rates.",
+                },
+                {
+                  title: "Market Access",
+                  detail:
+                    "Some markets are only accessible if goods meet specific origin criteria, which the COO proves.",
+                },
+              ].map((reason, i) => (
+                <li key={reason.title} className="flex gap-3 text-brand-ink/80">
+                  <span className="font-bold text-brand-accent-dark">
+                    {i + 1}.
+                  </span>
+                  <span>
+                    <strong className="text-brand-primary">{reason.title}</strong>
+                    : {reason.detail}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <p className="mt-6 text-brand-ink/80">
+              There are two primary types of Certificates of Origin:{" "}
+              <strong className="text-brand-primary">Non-Preferential COOs</strong>{" "}
+              (used for general export purposes, no tariff benefit) and{" "}
+              <strong className="text-brand-primary">Preferential COOs</strong>{" "}
+              (issued under specific trade agreements like SADC or the EU,
+              allowing reduced tariffs or exemptions).
             </p>
           </div>
+        </section>
+      </Reveal>
 
-          <div className="mt-6">
-            <ApplyContactButtons />
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              The role of Tzaneen Chamber of Commerce
+            </h2>
+            <p className="mt-4 text-brand-ink/80">
+              Our accreditation and authority to issue Certificates of Origin
+              place us at a unique vantage point to support the local business
+              community in international trade. Our role encompasses:
+            </p>
+            <ul className="mt-4 space-y-3">
+              {[
+                {
+                  title: "Verification and Authentication",
+                  detail:
+                    "We rigorously verify the information provided by exporters to ensure compliance with international trade regulations.",
+                },
+                {
+                  title: "Guidance and Support",
+                  detail:
+                    "Our experienced team offers guidance and support, helping businesses understand the nuances of CO requirements.",
+                },
+                {
+                  title: "Advocacy and Representation",
+                  detail:
+                    "We represent the interests of local businesses, advocating for policies and practices that facilitate smoother, more efficient trade.",
+                },
+              ].map((role) => (
+                <li key={role.title} className="flex gap-3 text-brand-ink/80">
+                  <span
+                    aria-hidden
+                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
+                  />
+                  <span>
+                    <strong className="text-brand-primary">{role.title}</strong>
+                    : {role.detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
-            Frequently asked questions
-          </h2>
-          <div className="mt-6">
-            <FaqAccordion items={faqItems} />
+      <Reveal>
+        <section className="bg-brand-cream">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              Pricing
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                <p className="text-3xl font-bold text-brand-primary">R250</p>
+                <p className="mt-1 text-sm text-brand-ink/70">Per application, for members</p>
+              </div>
+              <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                <p className="text-3xl font-bold text-brand-primary">R375</p>
+                <p className="mt-1 text-sm text-brand-ink/70">Per application, for non-members</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              Eligibility and requirements
+            </h2>
+            <p className="mt-4 text-brand-ink/80">
+              All exporters, whether members or non-members of the Tzaneen
+              Chamber of Commerce, are eligible to apply for a COO. You&apos;ll
+              need:
+            </p>
+            <ul className="mt-4 space-y-3">
+              {requirements.map((req) => (
+                <li key={req} className="flex gap-3 text-brand-ink/80">
+                  <span
+                    aria-hidden
+                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
+                  />
+                  <span>{req}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section className="bg-brand-cream">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              Step-by-step application process
+            </h2>
+            <ol className="mt-6 space-y-4">
+              {steps.map((step, i) => (
+                <li key={step.title} className="flex gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-brand-primary">{step.title}</p>
+                    <p className="text-sm text-brand-ink/70">{step.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
+              <p className="font-semibold text-brand-primary">
+                Processing time &amp; delivery
+              </p>
+              <p className="mt-2 text-sm text-brand-ink/70">
+                Processing is electronic and immediate — same day. Upon
+                approval, your Certificate of Origin is issued electronically as
+                a digital copy, widely accepted by customs authorities
+                worldwide.
+              </p>
+            </div>
+
+            <div className="mt-6">
+              <ApplyContactButtons />
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section className="bg-white">
+          <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+            <h2 className="text-2xl font-bold text-brand-primary sm:text-3xl">
+              Frequently asked questions
+            </h2>
+            <div className="mt-6">
+              <FaqAccordion items={faqItems} />
+            </div>
+          </div>
+        </section>
+      </Reveal>
     </>
   );
 }

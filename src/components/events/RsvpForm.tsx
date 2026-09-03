@@ -155,7 +155,7 @@ export function RsvpForm({ eventId }: { eventId: string }) {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-full bg-brand-accent px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark disabled:opacity-60"
+        className="w-full rounded-full bg-brand-accent px-4 py-3 font-semibold text-white shadow-md shadow-brand-accent/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-accent-dark hover:shadow-lg disabled:translate-y-0 disabled:opacity-60 disabled:shadow-md"
       >
         {status === "submitting" ? "Sending…" : "RSVP"}
       </button>

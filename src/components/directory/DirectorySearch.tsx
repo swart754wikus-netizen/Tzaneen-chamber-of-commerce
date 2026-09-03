@@ -75,7 +75,7 @@ export function DirectorySearch() {
         {results.map((member) => (
           <div
             key={member.id}
-            className="flex items-center gap-4 rounded-2xl border border-brand-primary/10 p-6 shadow-sm"
+            className="flex items-center gap-4 rounded-2xl border border-brand-primary/10 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-accent/40 hover:shadow-md"
           >
             {member.logoUrl && (
               <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">

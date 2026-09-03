@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -12,6 +13,7 @@ export default function ContactPage() {
     <>
       <PageHeader eyebrow="Get in touch" title="Contact Us" />
 
+      <Reveal>
       <section className="bg-white">
         <div className="mx-auto grid max-w-5xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2">
           <div>
@@ -60,6 +62,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      </Reveal>
     </>
   );
 }
