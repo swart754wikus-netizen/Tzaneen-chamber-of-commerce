@@ -1,23 +1,57 @@
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import { db, isFirebaseConfigured } from "@/lib/firebase";
+
 export type Article = {
-  slug: string;
+  id: string;
   title: string;
   date: string; // ISO date, e.g. "2026-07-24" — used for sorting and display
   body: string;
 };
 
-// Static content — no database. To publish a new update, send the text
-// over and it gets added here as a new entry, then deployed like any
-// other change to the site.
-export const articles: Article[] = [];
-
-export function getPublishedArticles(): Article[] {
-  return [...articles].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+function assertFirestoreReady() {
+  if (!isFirebaseConfigured || !db) {
+    throw new Error("Firebase isn't configured yet.");
+  }
 }
 
-export function getArticleBySlug(slug: string): Article | null {
-  return articles.find((article) => article.slug === slug) ?? null;
+export async function getAllArticles(): Promise<Article[]> {
+  assertFirestoreReady();
+  const snapshot = await getDocs(
+    query(collection(db!, "articles"), orderBy("date", "desc"))
+  );
+  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }) as Article);
+}
+
+export async function getArticle(id: string): Promise<Article | null> {
+  assertFirestoreReady();
+  const snapshot = await getDoc(doc(db!, "articles", id));
+  if (!snapshot.exists()) return null;
+  return { id: snapshot.id, ...snapshot.data() } as Article;
+}
+
+export async function createArticle(input: Omit<Article, "id">) {
+  assertFirestoreReady();
+  await addDoc(collection(db!, "articles"), input);
+}
+
+export async function updateArticle(id: string, input: Omit<Article, "id">) {
+  assertFirestoreReady();
+  await updateDoc(doc(db!, "articles", id), input);
+}
+
+export async function deleteArticle(id: string) {
+  assertFirestoreReady();
+  await deleteDoc(doc(db!, "articles", id));
 }
 
 export function formatArticleDate(isoDate: string): string {

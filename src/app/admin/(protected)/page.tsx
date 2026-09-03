@@ -22,6 +22,11 @@ const cards = [
     description: "Manage Exco members' names, titles and photos.",
   },
   {
+    href: "/admin/articles",
+    title: "Articles",
+    description: "Publish, edit or remove News articles.",
+  },
+  {
     href: "/admin/documents",
     title: "Documents",
     description: "Upload letters (view-only) and the Constitution.",

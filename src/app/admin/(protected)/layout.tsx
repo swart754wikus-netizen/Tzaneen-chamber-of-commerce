@@ -13,6 +13,7 @@ const adminNav = [
   { label: "Applications", href: "/admin/applications" },
   { label: "Directory", href: "/admin/members" },
   { label: "Exco", href: "/admin/exco" },
+  { label: "Articles", href: "/admin/articles" },
   { label: "Documents", href: "/admin/documents" },
 ];
 
