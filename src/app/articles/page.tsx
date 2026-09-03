@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { getPublishedArticles, formatArticleDate } from "@/lib/articles";
 
 export const metadata: Metadata = {
-  title: "Articles — Tzaneen Chamber of Commerce",
+  title: "Articles",
   description:
     "Updates from the Tzaneen Chamber of Commerce and Greater Tzaneen's business community.",
 };

@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { EventsCalendar } from "@/components/events/EventsCalendar";
 
 export const metadata: Metadata = {
-  title: "Events — Tzaneen Chamber of Commerce",
+  title: "Events",
   description: "Upcoming events from the Tzaneen Chamber of Commerce.",
 };
 

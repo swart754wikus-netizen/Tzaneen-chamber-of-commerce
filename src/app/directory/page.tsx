@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { DirectorySearch } from "@/components/directory/DirectorySearch";
 
 export const metadata: Metadata = {
-  title: "Business Directory — Tzaneen Chamber of Commerce",
+  title: "Business Directory",
   description: "Find trusted local businesses and Chamber members in Tzaneen.",
 };
 

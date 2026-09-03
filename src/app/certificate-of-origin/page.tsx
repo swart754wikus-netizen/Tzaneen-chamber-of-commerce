@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { FaqAccordion } from "@/components/coo/FaqAccordion";
 
 export const metadata: Metadata = {
-  title: "Certificate of Origin — Tzaneen Chamber of Commerce",
+  title: "Certificate of Origin",
   description:
     "Certify your exported goods and unlock preferential trade rates through the Tzaneen Chamber of Commerce's accredited Certificate of Origin process.",
 };

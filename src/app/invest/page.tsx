@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { NeedsContent } from "@/components/ui/NeedsContent";
 
 export const metadata: Metadata = {
-  title: "Invest in Tzaneen — Tzaneen Chamber of Commerce",
+  title: "Invest in Tzaneen",
   description: "Explore investment opportunities in Greater Tzaneen.",
 };
 

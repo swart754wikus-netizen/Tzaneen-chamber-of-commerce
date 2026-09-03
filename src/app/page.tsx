@@ -6,6 +6,7 @@ import { FeatureGrid } from "@/components/home/FeatureGrid";
 import { MissionQuoteRow } from "@/components/home/MissionQuoteRow";
 import { HomeStats } from "@/components/home/HomeStats";
 import { TrustedByStrip } from "@/components/home/TrustedByStrip";
+import { Reveal } from "@/components/ui/Reveal";
 
 const foundingYear = 1959;
 const yearsServing = new Date().getFullYear() - foundingYear;
@@ -42,13 +43,13 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/apply"
-              className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-brand-accent-dark"
+              className="rounded-full bg-brand-accent px-7 py-3 font-semibold text-white shadow-lg shadow-brand-accent/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-accent-dark hover:shadow-xl hover:shadow-brand-accent/30"
             >
               Become a Member
             </Link>
             <Link
               href="/directory"
-              className="rounded-full border-2 border-white px-7 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-brand-primary"
+              className="rounded-full border-2 border-white px-7 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-brand-primary"
             >
               Business Directory
             </Link>
@@ -64,22 +65,32 @@ export default function Home() {
         <HomeStats yearsServing={yearsServing} />
       </div>
 
-      <FeatureGrid />
+      <Reveal>
+        <FeatureGrid />
+      </Reveal>
 
-      <ImpactSection />
+      <Reveal>
+        <ImpactSection />
+      </Reveal>
 
       {/* Call Back Request */}
-      <section id="call-back" className="scroll-mt-20 bg-brand-cream">
-        <div className="mx-auto max-w-md px-4 py-16 sm:px-6">
-          <div className="rounded-3xl bg-white p-8 shadow-lg shadow-brand-primary/5">
-            <CallBackRequestForm />
+      <Reveal>
+        <section id="call-back" className="scroll-mt-20 bg-brand-cream">
+          <div className="mx-auto max-w-md px-4 py-16 sm:px-6">
+            <div className="rounded-3xl bg-white p-8 shadow-lg shadow-brand-primary/5">
+              <CallBackRequestForm />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
 
-      <MissionQuoteRow />
+      <Reveal>
+        <MissionQuoteRow />
+      </Reveal>
 
-      <TrustedByStrip />
+      <Reveal>
+        <TrustedByStrip />
+      </Reveal>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ExcoGrid } from "@/components/exco/ExcoGrid";
 
 export const metadata: Metadata = {
-  title: "Executive Committee — Tzaneen Chamber of Commerce",
+  title: "Executive Committee",
   description: "Meet the Executive Committee of the Tzaneen Chamber of Commerce.",
 };
 

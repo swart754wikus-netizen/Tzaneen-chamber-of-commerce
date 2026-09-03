@@ -96,7 +96,7 @@ export function FeatureGrid() {
                 className="absolute inset-0 border border-dashed border-white/15 bg-brand-primary opacity-90 transition-opacity group-hover:opacity-100"
               />
             )}
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand-accent text-brand-accent">
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand-accent text-brand-accent transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-brand-accent group-hover:text-brand-primary-dark">
               {panel.icon}
             </div>
             <h3 className="relative text-lg font-bold uppercase tracking-wide">
@@ -105,7 +105,7 @@ export function FeatureGrid() {
             <p className="relative max-w-[16rem] px-4 text-sm text-white/80">
               {panel.description}
             </p>
-            <span className="relative text-xs font-semibold uppercase tracking-wide text-brand-accent">
+            <span className="relative text-xs font-semibold uppercase tracking-wide text-brand-accent transition-transform duration-300 group-hover:translate-x-1">
               {panel.linkLabel} &rarr;
             </span>
           </Link>

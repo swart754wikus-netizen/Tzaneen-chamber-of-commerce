@@ -5,7 +5,7 @@ import { MembershipApplicationForm } from "@/components/apply/MembershipApplicat
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 
 export const metadata: Metadata = {
-  title: "New Membership Application — Tzaneen Chamber of Commerce",
+  title: "New Membership Application",
   description: "Apply for membership with the Tzaneen Chamber of Commerce.",
 };
 

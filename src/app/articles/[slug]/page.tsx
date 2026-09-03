@@ -15,9 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   return {
-    title: article
-      ? `${article.title} — Tzaneen Chamber of Commerce`
-      : "Article not found — Tzaneen Chamber of Commerce",
+    title: article ? article.title : "Article not found",
   };
 }
 

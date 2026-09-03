@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { DocumentsList } from "@/components/documents/DocumentsList";
 
 export const metadata: Metadata = {
-  title: "Documents — Tzaneen Chamber of Commerce",
+  title: "Documents",
   description: "Chamber documents, letters and the Constitution.",
 };
 

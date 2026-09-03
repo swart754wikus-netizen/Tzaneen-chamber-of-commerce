@@ -4,7 +4,7 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { NeedsContent } from "@/components/ui/NeedsContent";
 
 export const metadata: Metadata = {
-  title: "Annual Awards — Tzaneen Chamber of Commerce",
+  title: "Annual Awards",
   description:
     "Celebrating Greater Tzaneen's businesses at the Tzaneen Chamber of Commerce's Annual Award Ceremony, 25 March 2026.",
 };

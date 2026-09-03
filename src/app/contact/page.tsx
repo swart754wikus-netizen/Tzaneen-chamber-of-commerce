@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Tzaneen Chamber of Commerce",
+  title: "Contact Us",
   description: "Get in touch with the Tzaneen Chamber of Commerce.",
 };
 

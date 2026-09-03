@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { chamberGoals } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "About Us — Tzaneen Chamber of Commerce",
+  title: "About Us",
   description:
     "For more than six decades the Tzaneen Chamber of Commerce has been the heartbeat of Greater Tzaneen's business community.",
 };
