@@ -403,4 +403,27 @@ Adding the Exco nav item made 10 items in the main nav, which pushed the header 
 
 ---
 
-**Next**: same open items as above — Invest/Events/News photos, Award Ceremony date confirmation, rest of the member directory, real `/invest` content.
+### Firebase connected — live testing round, plus a batch of small fixes
+
+Firebase got connected (env vars in Vercel, security rules deployed) and admin login works. Since then:
+
+- **Events calendar**: `/events` rebuilt as an actual month-by-month calendar (pick a month, see that month's events) instead of a flat list, per your request. Added a "Copy Link" button in `/admin/events` so a shareable RSVP link can be grabbed and sent to clients directly, without digging through the calendar.
+- **CSV export bug**: RSVP/application downloads were dumping every row into one Excel column — turned out to be Excel's regional list-separator setting (South African installs often default to `;` not `,`). Fixed by adding the `sep=,` directive Excel recognizes, forcing comma-splitting regardless of that setting.
+- **Real social links**: Facebook, Instagram and TikTok now link to the real profiles in the footer; LinkedIn removed at your request.
+- **COO pricing** updated to R250 (members) / R375 (non-members), everywhere it appears on that page.
+- **Premium visual pass**: new heading font (Fraunces, paired with Inter for body text) site-wide, scroll-reveal animation on every page's sections, hover polish (lift + shadow) on every card and form button. Also added the technical basics a rival site likely skipped — sitemap.xml, robots.txt, Open Graph/Twitter preview cards, consistent page titles.
+- **News/Articles made self-service**: this was the one remaining piece of content still hardcoded in the codebase. Converted to the same Firestore pattern as Events/Directory/Exco — `/admin/articles` lets the admin publish, edit and delete articles herself now, no code changes needed.
+
+### Exco feedback round (after design approval)
+
+Exco signed off on the design and sent a round of notes. Actioned:
+- **Invest tab removed entirely** (page, nav link, homepage panel, sitemap) — asked for outright.
+- **"[NEEDS CONTENT]" placeholder text removed from the live homepage stat bar** — the "Jobs Supported" tile had no real figure and was showing that bracketed text live, which is what the "crosses that need to go" note was almost certainly pointing at. Removed the tile; stat bar and feature grid rebalanced to 3 columns.
+- **Exco tab**: no change needed — the circular photo + name + title layout already matches what was asked for.
+
+Flagged back rather than actioned (need your/their answer first):
+- **Directory → possibly replaced with a MyGuideTzn link**: the note says "maybe" — this is a real architecture decision (keep the built-in searchable directory vs. link out to an external product), not something to guess at.
+- **RSVP confirmation showing banking details for payment**: needs real banking details (not fabricated) and confirmation this is actually wanted, not just a "could we?" question — she asked about security in the same breath, suggesting some hesitation.
+- **Security question**: answered directly in chat, not in code — summary: Vercel serves everything over HTTPS; the admin login runs on Firebase Authentication (Google-backed, passwords never touch our own servers); every write to the database and file storage requires that login, enforced by security rules already deployed; the public can only submit RSVPs/applications, never read anyone else's; no card/payment data is collected anywhere on the site today. The one caveat already on record: "view-only" PDF documents are a soft UI-level deterrent (no visible download link), not real access control, since the file URL itself has to be public for the embed to render for every visitor.
+
+**Next**: waiting on the Directory/MyGuideTzn decision, real banking details + confirmation for the RSVP payment screen (if still wanted), real social media URLs still missing (LinkedIn), and the still-unconfirmed Award Ceremony date.
