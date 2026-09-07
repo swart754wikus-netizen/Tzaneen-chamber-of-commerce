@@ -38,7 +38,7 @@ export function HomeStats({ yearsServing }: { yearsServing: number }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-6 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-4 sm:p-8">
+    <div className="grid grid-cols-1 gap-6 rounded-2xl bg-brand-primary-dark p-6 shadow-xl sm:grid-cols-3 sm:p-8">
       <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
         <svg {...statIconProps} className="text-brand-accent">
           <rect x="3" y="4" width="18" height="17" rx="2" />
@@ -63,18 +63,6 @@ export function HomeStats({ yearsServing }: { yearsServing: number }) {
         </p>
         <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
           Member Businesses
-        </p>
-      </div>
-      <div className="flex flex-col items-center text-center sm:border-r sm:border-white/10">
-        <svg {...statIconProps} className="text-brand-accent">
-          <rect x="3" y="7" width="18" height="13" rx="2" />
-          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-        </svg>
-        <p className="mt-2 text-3xl font-bold text-brand-accent sm:text-4xl">
-          [NEEDS CONTENT]
-        </p>
-        <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/60 sm:text-sm">
-          Jobs Supported
         </p>
       </div>
       <div className="flex flex-col items-center text-center">

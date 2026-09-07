@@ -28,19 +28,6 @@ const panels = [
     ),
   },
   {
-    title: "Invest",
-    description: "Explore investment opportunities in Greater Tzaneen.",
-    href: "/invest",
-    linkLabel: "Explore Opportunities",
-    photo: null, // [NEEDS PHOTO]
-    icon: (
-      <svg {...iconProps}>
-        <path d="M3 17 9 11 13 15 21 7" />
-        <path d="M15 7h6v6" />
-      </svg>
-    ),
-  },
-  {
     title: "Events",
     description: "Network, learn and grow at our business events.",
     href: "/events",
@@ -71,7 +58,7 @@ const panels = [
 export function FeatureGrid() {
   return (
     <section className="bg-brand-primary-dark">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid sm:grid-cols-3">
         {panels.map((panel) => (
           <Link
             key={panel.title}
