@@ -17,6 +17,7 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
   const [title, setTitle] = useState(event?.title ?? "");
   const [date, setDate] = useState(event?.date ?? "");
   const [description, setDescription] = useState(event?.description ?? "");
+  const [cost, setCost] = useState(event?.cost ?? "");
   const [rsvpEnabled, setRsvpEnabled] = useState(event?.rsvpEnabled ?? true);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
@@ -39,6 +40,7 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
         title: title.trim(),
         date,
         description: description.trim(),
+        cost: cost.trim(),
         rsvpEnabled,
         ...(photoUrl ? { photoUrl } : {}),
       };
@@ -99,6 +101,22 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
           onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)}
           className="w-full text-sm"
         />
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-medium text-brand-primary">
+          Cost (leave blank if free)
+        </label>
+        <input
+          value={cost}
+          onChange={(e) => setCost(e.target.value)}
+          placeholder="e.g. R150 per person"
+          className={fieldClass}
+        />
+        <p className="mt-1 text-xs text-brand-ink/50">
+          When set, anyone who RSVPs automatically gets an email with the
+          Chamber&apos;s banking details to pay. Set these up first under
+          Payment Details.
+        </p>
       </div>
       <label className="flex items-center gap-2 text-sm font-medium text-brand-primary">
         <input

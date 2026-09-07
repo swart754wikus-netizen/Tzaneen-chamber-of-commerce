@@ -15,6 +15,7 @@ const adminNav = [
   { label: "Exco", href: "/admin/exco" },
   { label: "Articles", href: "/admin/articles" },
   { label: "Documents", href: "/admin/documents" },
+  { label: "Payment Details", href: "/admin/payment-details" },
 ];
 
 export default function AdminProtectedLayout({

@@ -426,4 +426,26 @@ Flagged back rather than actioned (need your/their answer first):
 - **RSVP confirmation showing banking details for payment**: needs real banking details (not fabricated) and confirmation this is actually wanted, not just a "could we?" question — she asked about security in the same breath, suggesting some hesitation.
 - **Security question**: answered directly in chat, not in code — summary: Vercel serves everything over HTTPS; the admin login runs on Firebase Authentication (Google-backed, passwords never touch our own servers); every write to the database and file storage requires that login, enforced by security rules already deployed; the public can only submit RSVPs/applications, never read anyone else's; no card/payment data is collected anywhere on the site today. The one caveat already on record: "view-only" PDF documents are a soft UI-level deterrent (no visible download link), not real access control, since the file URL itself has to be public for the embed to render for every visitor.
 
-**Next**: waiting on the Directory/MyGuideTzn decision, real banking details + confirmation for the RSVP payment screen (if still wanted), real social media URLs still missing (LinkedIn), and the still-unconfirmed Award Ceremony date.
+**Next**: waiting on the Directory/MyGuideTzn decision, real social media URLs still missing (LinkedIn), and the still-unconfirmed Award Ceremony date.
+
+---
+
+### RSVP payments: email banking details (Option A chosen over PayFast)
+
+Sent a two-option comparison PDF (email banking details vs. PayFast online payments) so Exco could decide without me guessing. **Decision: email banking details — online payment is not mandatory.** PayFast is off the table for now (it would've needed the Chamber to open their own merchant account first anyway, so nothing was built for it).
+
+Built:
+- **Events can now have a `cost`** (free text, e.g. "R150 per person") — a new field in the event form in `/admin/events`. Leave it blank for free events.
+- **`/admin/payment-details`** — a new admin screen where the banking details themselves are entered (bank name, account holder, account number, branch code, reference note). Nothing was hardcoded — this is the same self-service pattern as everything else, so no real banking details ever needed to pass through me or sit in the codebase.
+- When someone RSVPs for an event that has a cost set, they automatically get an email with those banking details, pulled live from what's saved in `/admin/payment-details`. Free events (no cost set) don't trigger any email — nothing changes there.
+- The RSVP confirmation on the site itself just says "check your email for payment details" — the banking details are never shown on the page, matching what was asked for (email only, not on-screen).
+
+**Setup needed from you**, in addition to what's already documented for the main EmailJS template:
+1. In EmailJS, create a **second** template (separate from the existing admin-notification one) — e.g. "RSVP Payment Details". Its **"To Email" field must be set to `{{to_email}}`** (a variable), not a fixed address, since this one goes to whichever attendee just RSVP'd.
+2. Build the template body from these variables: `{{to_name}}`, `{{event_title}}`, `{{event_date}}`, `{{cost}}`, `{{bank_name}}`, `{{account_holder}}`, `{{account_number}}`, `{{branch_code}}`, `{{reference}}`.
+3. Add `NEXT_PUBLIC_EMAILJS_RSVP_PAYMENT_TEMPLATE_ID` to Vercel's environment variables (the new template's ID — reuses the same Service ID and Public Key already configured).
+4. Once that's live, go into `/admin/payment-details` and enter the Chamber's real banking details.
+
+Until both of those are done, paid events still work fine — the RSVP itself always saves — the payment email just silently doesn't send (same fail-fast-but-never-blocks pattern as every other notification on this site).
+
+**Next**: create the second EmailJS template + env var, then enter real banking details in `/admin/payment-details`.

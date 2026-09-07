@@ -31,6 +31,11 @@ const cards = [
     title: "Documents",
     description: "Upload letters (view-only) and the Constitution.",
   },
+  {
+    href: "/admin/payment-details",
+    title: "Payment Details",
+    description: "Banking details emailed automatically for paid events.",
+  },
 ];
 
 export default function AdminDashboardPage() {

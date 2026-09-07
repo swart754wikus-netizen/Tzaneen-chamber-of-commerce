@@ -11,6 +11,8 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@/lib/firebase";
+import { getPaymentDetails } from "@/lib/paymentDetails";
+import { sendRsvpPaymentEmail } from "@/lib/email";
 
 export type ChamberEvent = {
   id: string;
@@ -19,6 +21,10 @@ export type ChamberEvent = {
   description: string;
   photoUrl?: string;
   rsvpEnabled: boolean;
+  // Free-text cost, e.g. "R150 per person" — left blank means free. When
+  // set, a successful RSVP triggers a payment-details email to the
+  // attendee (see lib/paymentDetails.ts); when blank, no email is sent.
+  cost?: string;
 };
 
 export type RsvpInput = {
@@ -85,12 +91,39 @@ export async function deleteEvent(id: string) {
   await deleteDoc(doc(db!, "events", id));
 }
 
-export async function submitRsvp(eventId: string, input: RsvpInput) {
+// Takes the full event (not just its id) so it can check whether this is a
+// paid event and, if so, email the attendee the Chamber's banking details
+// after saving the RSVP. That email is best-effort — it never blocks or
+// fails the RSVP itself, since the RSVP is already saved by the time it's
+// attempted.
+export async function submitRsvp(event: ChamberEvent, input: RsvpInput) {
   assertFirestoreReady();
-  await addDoc(collection(db!, "events", eventId, "rsvps"), {
+  await addDoc(collection(db!, "events", event.id, "rsvps"), {
     ...input,
     submittedAt: serverTimestamp(),
   });
+
+  if (event.cost) {
+    try {
+      const payment = await getPaymentDetails();
+      if (payment) {
+        await sendRsvpPaymentEmail({
+          to_email: input.email,
+          to_name: `${input.name} ${input.surname}`,
+          event_title: event.title,
+          event_date: formatEventDate(event.date),
+          cost: event.cost,
+          bank_name: payment.bankName,
+          account_holder: payment.accountHolder,
+          account_number: payment.accountNumber,
+          branch_code: payment.branchCode,
+          reference: payment.reference,
+        });
+      }
+    } catch (error) {
+      console.error("Sending RSVP payment email failed:", error);
+    }
+  }
 }
 
 export async function getRsvps(eventId: string): Promise<Rsvp[]> {

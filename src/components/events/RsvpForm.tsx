@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitRsvp } from "@/lib/events";
+import { submitRsvp, type ChamberEvent } from "@/lib/events";
 
 const fieldClass =
   "w-full rounded-xl border border-brand-primary/15 bg-white px-4 py-3 text-brand-ink placeholder:text-brand-ink/40 focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/40";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function RsvpForm({ eventId }: { eventId: string }) {
+export function RsvpForm({ event }: { event: ChamberEvent }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
@@ -20,8 +20,8 @@ export function RsvpForm({ eventId }: { eventId: string }) {
   const [headcount, setHeadcount] = useState("1");
   const [status, setStatus] = useState<Status>("idle");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
+    formEvent.preventDefault();
     if (!name.trim() || !surname.trim() || !phone.trim() || !email.trim()) {
       setStatus("error");
       return;
@@ -29,7 +29,7 @@ export function RsvpForm({ eventId }: { eventId: string }) {
 
     setStatus("submitting");
     try {
-      await submitRsvp(eventId, {
+      await submitRsvp(event, {
         name: name.trim(),
         surname: surname.trim(),
         phone: phone.trim(),
@@ -50,6 +50,12 @@ export function RsvpForm({ eventId }: { eventId: string }) {
         <p className="font-semibold text-brand-primary">
           Thanks — your RSVP has been received.
         </p>
+        {event.cost && (
+          <p className="mt-1 text-sm text-brand-ink/60">
+            Check your email — we&apos;ve sent payment details for the{" "}
+            {event.cost} cost.
+          </p>
+        )}
       </div>
     );
   }

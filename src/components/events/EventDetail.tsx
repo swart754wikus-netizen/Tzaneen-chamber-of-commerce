@@ -36,11 +36,16 @@ export function EventDetail({ eventId }: { eventId: string }) {
         {event.title}
       </h1>
       <p className="mt-4 text-brand-ink/80">{event.description}</p>
+      {event.cost && (
+        <p className="mt-2 font-semibold text-brand-primary">
+          Cost: {event.cost}
+        </p>
+      )}
 
       {event.rsvpEnabled && (
         <div className="mt-10 rounded-3xl bg-brand-cream p-8 shadow-sm">
           <h2 className="mb-4 text-lg font-bold text-brand-primary">RSVP</h2>
-          <RsvpForm eventId={event.id} />
+          <RsvpForm event={event} />
         </div>
       )}
     </div>
