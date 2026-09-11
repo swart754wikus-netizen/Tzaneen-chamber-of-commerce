@@ -17,8 +17,11 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
   const [title, setTitle] = useState(event?.title ?? "");
   const [date, setDate] = useState(event?.date ?? "");
   const [description, setDescription] = useState(event?.description ?? "");
-  const [cost, setCost] = useState(
-    event?.costPerPerson ? String(event.costPerPerson) : ""
+  const [memberCost, setMemberCost] = useState(
+    event?.memberCostPerPerson ? String(event.memberCostPerPerson) : ""
+  );
+  const [nonMemberCost, setNonMemberCost] = useState(
+    event?.nonMemberCostPerPerson ? String(event.nonMemberCostPerPerson) : ""
   );
   const [rsvpEnabled, setRsvpEnabled] = useState(event?.rsvpEnabled ?? true);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -42,7 +45,10 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
         title: title.trim(),
         date,
         description: description.trim(),
-        costPerPerson: cost.trim() ? Number(cost.trim()) || 0 : 0,
+        memberCostPerPerson: memberCost.trim() ? Number(memberCost.trim()) || 0 : 0,
+        nonMemberCostPerPerson: nonMemberCost.trim()
+          ? Number(nonMemberCost.trim()) || 0
+          : 0,
         rsvpEnabled,
         ...(photoUrl ? { photoUrl } : {}),
       };
@@ -104,26 +110,42 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
           className="w-full text-sm"
         />
       </div>
-      <div>
-        <label className="mb-1 block text-sm font-medium text-brand-primary">
-          Cost per person, in Rand (leave blank if free)
-        </label>
-        <input
-          type="number"
-          min="0"
-          step="0.01"
-          value={cost}
-          onChange={(e) => setCost(e.target.value)}
-          placeholder="e.g. 150"
-          className={fieldClass}
-        />
-        <p className="mt-1 text-xs text-brand-ink/50">
-          When set, anyone who RSVPs sees the total for their whole party
-          (this amount × how many people they said are coming) plus the
-          Chamber&apos;s banking details, right on the confirmation screen.
-          Set those up first under Payment Details.
-        </p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-brand-primary">
+            Member cost per person, in Rand (leave blank if free)
+          </label>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={memberCost}
+            onChange={(e) => setMemberCost(e.target.value)}
+            placeholder="e.g. 100"
+            className={fieldClass}
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-brand-primary">
+            Non-member cost per person, in Rand (leave blank if free)
+          </label>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={nonMemberCost}
+            onChange={(e) => setNonMemberCost(e.target.value)}
+            placeholder="e.g. 150"
+            className={fieldClass}
+          />
+        </div>
       </div>
+      <p className="-mt-2 text-xs text-brand-ink/50">
+        Whichever rate matches what an attendee says they are (member or
+        non-member) is multiplied by their headcount and shown as a total,
+        along with the Chamber&apos;s banking details, right on the RSVP
+        confirmation screen. Set those up first under Payment Details.
+      </p>
       <label className="flex items-center gap-2 text-sm font-medium text-brand-primary">
         <input
           type="checkbox"

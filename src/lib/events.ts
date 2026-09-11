@@ -19,12 +19,15 @@ export type ChamberEvent = {
   description: string;
   photoUrl?: string;
   rsvpEnabled: boolean;
-  // Cost per person in Rand — left blank/0 means free. When set, the RSVP
-  // confirmation screen multiplies this by the headcount the attendee
-  // entered and shows the total plus the Chamber's banking details (see
-  // lib/paymentDetails.ts, and RsvpForm's success state); when blank,
-  // nothing payment-related is shown.
-  costPerPerson?: number;
+  // Cost per person in Rand, separately for members and non-members —
+  // left blank/0 means free for that group. The RSVP confirmation screen
+  // picks the rate matching what the attendee said they are, multiplies
+  // it by their headcount, and shows the total plus the Chamber's
+  // banking details (see lib/paymentDetails.ts, and RsvpForm's success
+  // state); if the applicable rate is blank/0, nothing payment-related
+  // is shown for that RSVP.
+  memberCostPerPerson?: number;
+  nonMemberCostPerPerson?: number;
 };
 
 export type RsvpInput = {

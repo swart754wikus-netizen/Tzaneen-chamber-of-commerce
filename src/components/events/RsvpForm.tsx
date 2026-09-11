@@ -22,12 +22,17 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
   const [status, setStatus] = useState<Status>("idle");
   const [payment, setPayment] = useState<PaymentDetails | null>(null);
 
+  const applicableRate =
+    memberStatus === "member"
+      ? event.memberCostPerPerson
+      : event.nonMemberCostPerPerson;
+
   useEffect(() => {
-    if (status !== "success" || !event.costPerPerson) return;
+    if (status !== "success" || !applicableRate) return;
     getPaymentDetails()
       .then(setPayment)
       .catch(() => {});
-  }, [status, event.costPerPerson]);
+  }, [status, applicableRate]);
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
@@ -55,7 +60,7 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
 
   if (status === "success") {
     const count = Math.max(1, parseInt(headcount, 10) || 1);
-    const total = (event.costPerPerson ?? 0) * count;
+    const total = (applicableRate ?? 0) * count;
 
     return (
       <div className="rounded-2xl bg-brand-primary/5 p-8 text-center">
@@ -63,7 +68,7 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
           Thanks — your RSVP has been received.
         </p>
 
-        {!!event.costPerPerson && (
+        {!!applicableRate && (
           <>
             {payment ? (
               <div className="mt-6 rounded-2xl bg-white p-6 text-left shadow-sm">
@@ -71,8 +76,9 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
                   Payment details — R{formatRand(total)} total
                 </p>
                 <p className="mt-1 text-sm text-brand-ink/60">
-                  R{formatRand(event.costPerPerson)} per person × {count}{" "}
-                  {count === 1 ? "person" : "people"}
+                  R{formatRand(applicableRate)} per person (
+                  {memberStatus === "member" ? "members" : "non-members"}) ×{" "}
+                  {count} {count === 1 ? "person" : "people"}
                 </p>
                 <dl className="mt-3 space-y-1.5 text-sm text-brand-ink/80">
                   <div className="flex justify-between gap-4">

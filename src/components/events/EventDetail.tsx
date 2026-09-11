@@ -36,9 +36,16 @@ export function EventDetail({ eventId }: { eventId: string }) {
         {event.title}
       </h1>
       <p className="mt-4 text-brand-ink/80">{event.description}</p>
-      {!!event.costPerPerson && (
+      {(!!event.memberCostPerPerson || !!event.nonMemberCostPerPerson) && (
         <p className="mt-2 font-semibold text-brand-primary">
-          Cost: R{formatRand(event.costPerPerson)} per person
+          Cost:{" "}
+          {event.memberCostPerPerson
+            ? `R${formatRand(event.memberCostPerPerson)} per person (members)`
+            : "Free for members"}
+          {" · "}
+          {event.nonMemberCostPerPerson
+            ? `R${formatRand(event.nonMemberCostPerPerson)} per person (non-members)`
+            : "Free for non-members"}
         </p>
       )}
 
