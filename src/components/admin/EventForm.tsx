@@ -113,8 +113,8 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
           className={fieldClass}
         />
         <p className="mt-1 text-xs text-brand-ink/50">
-          When set, anyone who RSVPs automatically gets an email with the
-          Chamber&apos;s banking details to pay. Set these up first under
+          When set, anyone who RSVPs sees the Chamber&apos;s banking details
+          right on the confirmation screen. Set these up first under
           Payment Details.
         </p>
       </div>

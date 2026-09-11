@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { submitRsvp, type ChamberEvent } from "@/lib/events";
+import { getPaymentDetails, type PaymentDetails } from "@/lib/paymentDetails";
 
 const fieldClass =
   "w-full rounded-xl border border-brand-primary/15 bg-white px-4 py-3 text-brand-ink placeholder:text-brand-ink/40 focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/40";
@@ -19,6 +20,14 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
   );
   const [headcount, setHeadcount] = useState("1");
   const [status, setStatus] = useState<Status>("idle");
+  const [payment, setPayment] = useState<PaymentDetails | null>(null);
+
+  useEffect(() => {
+    if (status !== "success" || !event.cost) return;
+    getPaymentDetails()
+      .then(setPayment)
+      .catch(() => {});
+  }, [status, event.cost]);
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
@@ -50,11 +59,43 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
         <p className="font-semibold text-brand-primary">
           Thanks — your RSVP has been received.
         </p>
+
         {event.cost && (
-          <p className="mt-1 text-sm text-brand-ink/60">
-            Check your email — we&apos;ve sent payment details for the{" "}
-            {event.cost} cost.
-          </p>
+          <>
+            {payment ? (
+              <div className="mt-6 rounded-2xl bg-white p-6 text-left shadow-sm">
+                <p className="font-semibold text-brand-primary">
+                  Payment details — {event.cost}
+                </p>
+                <dl className="mt-3 space-y-1.5 text-sm text-brand-ink/80">
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-brand-ink/50">Bank</dt>
+                    <dd className="font-medium">{payment.bankName}</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-brand-ink/50">Account Holder</dt>
+                    <dd className="font-medium">{payment.accountHolder}</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-brand-ink/50">Account Number</dt>
+                    <dd className="font-medium">{payment.accountNumber}</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-brand-ink/50">Branch Code</dt>
+                    <dd className="font-medium">{payment.branchCode}</dd>
+                  </div>
+                  {payment.reference && (
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-brand-ink/50">Reference</dt>
+                      <dd className="font-medium">{payment.reference}</dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-brand-ink/50">Loading payment details…</p>
+            )}
+          </>
         )}
       </div>
     );

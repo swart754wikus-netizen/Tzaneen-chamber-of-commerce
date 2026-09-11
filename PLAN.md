@@ -430,22 +430,19 @@ Flagged back rather than actioned (need your/their answer first):
 
 ---
 
-### RSVP payments: email banking details (Option A chosen over PayFast)
+### RSVP payments: on-screen banking details (Option A chosen over PayFast, then simplified from email to on-screen)
 
-Sent a two-option comparison PDF (email banking details vs. PayFast online payments) so Exco could decide without me guessing. **Decision: email banking details — online payment is not mandatory.** PayFast is off the table for now (it would've needed the Chamber to open their own merchant account first anyway, so nothing was built for it).
+Sent a two-option comparison PDF (banking details vs. PayFast online payments) so Exco could decide without me guessing. **Decision: banking details, not PayFast** — online payment isn't mandatory. PayFast is off the table for now (it would've needed the Chamber to open their own merchant account first anyway, so nothing was built for it).
+
+The delivery channel changed twice as this got refined:
+1. First built as an emailed confirmation (needed a second EmailJS template).
+2. Then changed to: show the banking details directly on the RSVP confirmation screen instead, only for paid events — free RSVPs show nothing payment-related. This removed the need for a second EmailJS template entirely, so that setup step is gone.
 
 Built:
-- **Events can now have a `cost`** (free text, e.g. "R150 per person") — a new field in the event form in `/admin/events`. Leave it blank for free events.
-- **`/admin/payment-details`** — a new admin screen where the banking details themselves are entered (bank name, account holder, account number, branch code, reference note). Nothing was hardcoded — this is the same self-service pattern as everything else, so no real banking details ever needed to pass through me or sit in the codebase.
-- When someone RSVPs for an event that has a cost set, they automatically get an email with those banking details, pulled live from what's saved in `/admin/payment-details`. Free events (no cost set) don't trigger any email — nothing changes there.
-- The RSVP confirmation on the site itself just says "check your email for payment details" — the banking details are never shown on the page, matching what was asked for (email only, not on-screen).
+- **Events can have a `cost`** (free text, e.g. "R150 per person") — a field in the event form in `/admin/events`. Leave it blank for free events.
+- **`/admin/payment-details`** — an admin screen where the banking details themselves are entered (bank name, account holder, account number, branch code, reference note). Nothing was hardcoded — same self-service pattern as everything else, so no real banking details ever needed to sit in the codebase.
+- When someone RSVPs for an event with a cost set, the confirmation screen (right after submitting) shows those banking details in full, pulled live from `/admin/payment-details`. Free events show only the plain "thanks, your RSVP has been received" message, same as before.
 
-**Setup needed from you**, in addition to what's already documented for the main EmailJS template:
-1. In EmailJS, create a **second** template (separate from the existing admin-notification one) — e.g. "RSVP Payment Details". Its **"To Email" field must be set to `{{to_email}}`** (a variable), not a fixed address, since this one goes to whichever attendee just RSVP'd.
-2. Build the template body from these variables: `{{to_name}}`, `{{event_title}}`, `{{event_date}}`, `{{cost}}`, `{{bank_name}}`, `{{account_holder}}`, `{{account_number}}`, `{{branch_code}}`, `{{reference}}`.
-3. Add `NEXT_PUBLIC_EMAILJS_RSVP_PAYMENT_TEMPLATE_ID` to Vercel's environment variables (the new template's ID — reuses the same Service ID and Public Key already configured).
-4. Once that's live, go into `/admin/payment-details` and enter the Chamber's real banking details.
+**Setup needed from you**: just enter the Chamber's real banking details into `/admin/payment-details` once Firebase is live — nothing else. No extra EmailJS template, no extra env var.
 
-Until both of those are done, paid events still work fine — the RSVP itself always saves — the payment email just silently doesn't send (same fail-fast-but-never-blocks pattern as every other notification on this site).
-
-**Next**: create the second EmailJS template + env var, then enter real banking details in `/admin/payment-details`.
+One trade-off worth knowing: since this is now on-screen only (no emailed copy), if someone closes that confirmation page before paying, they'd need to RSVP again (or call the Chamber) to see the banking details a second time — there's no follow-up record sitting in their inbox. Say if that becomes a real problem and it's easy to add the email back as well.

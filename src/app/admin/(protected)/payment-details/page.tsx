@@ -53,9 +53,8 @@ export default function AdminPaymentDetailsPage() {
       <h1 className="text-2xl font-bold text-brand-primary">Payment Details</h1>
       <p className="mt-1 max-w-xl text-sm text-brand-ink/60">
         These banking details are used only for paid events. When an event
-        has a cost set, anyone who RSVPs gets these details emailed to
-        them automatically — they&apos;re never shown on the website
-        itself.
+        has a cost set, anyone who RSVPs sees these details right after
+        submitting. Free events never show any of this.
       </p>
 
       {loading ? (
