@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { submitRsvp, type ChamberEvent } from "@/lib/events";
+import { submitRsvp, formatRand, type ChamberEvent } from "@/lib/events";
 import { getPaymentDetails, type PaymentDetails } from "@/lib/paymentDetails";
 
 const fieldClass =
@@ -23,11 +23,11 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
   const [payment, setPayment] = useState<PaymentDetails | null>(null);
 
   useEffect(() => {
-    if (status !== "success" || !event.cost) return;
+    if (status !== "success" || !event.costPerPerson) return;
     getPaymentDetails()
       .then(setPayment)
       .catch(() => {});
-  }, [status, event.cost]);
+  }, [status, event.costPerPerson]);
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
@@ -54,18 +54,25 @@ export function RsvpForm({ event }: { event: ChamberEvent }) {
   }
 
   if (status === "success") {
+    const count = Math.max(1, parseInt(headcount, 10) || 1);
+    const total = (event.costPerPerson ?? 0) * count;
+
     return (
       <div className="rounded-2xl bg-brand-primary/5 p-8 text-center">
         <p className="font-semibold text-brand-primary">
           Thanks — your RSVP has been received.
         </p>
 
-        {event.cost && (
+        {!!event.costPerPerson && (
           <>
             {payment ? (
               <div className="mt-6 rounded-2xl bg-white p-6 text-left shadow-sm">
                 <p className="font-semibold text-brand-primary">
-                  Payment details — {event.cost}
+                  Payment details — R{formatRand(total)} total
+                </p>
+                <p className="mt-1 text-sm text-brand-ink/60">
+                  R{formatRand(event.costPerPerson)} per person × {count}{" "}
+                  {count === 1 ? "person" : "people"}
                 </p>
                 <dl className="mt-3 space-y-1.5 text-sm text-brand-ink/80">
                   <div className="flex justify-between gap-4">

@@ -17,7 +17,9 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
   const [title, setTitle] = useState(event?.title ?? "");
   const [date, setDate] = useState(event?.date ?? "");
   const [description, setDescription] = useState(event?.description ?? "");
-  const [cost, setCost] = useState(event?.cost ?? "");
+  const [cost, setCost] = useState(
+    event?.costPerPerson ? String(event.costPerPerson) : ""
+  );
   const [rsvpEnabled, setRsvpEnabled] = useState(event?.rsvpEnabled ?? true);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
@@ -40,7 +42,7 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
         title: title.trim(),
         date,
         description: description.trim(),
-        cost: cost.trim(),
+        costPerPerson: cost.trim() ? Number(cost.trim()) || 0 : 0,
         rsvpEnabled,
         ...(photoUrl ? { photoUrl } : {}),
       };
@@ -104,18 +106,22 @@ export function EventForm({ event, onSaved, onCancel }: Props) {
       </div>
       <div>
         <label className="mb-1 block text-sm font-medium text-brand-primary">
-          Cost (leave blank if free)
+          Cost per person, in Rand (leave blank if free)
         </label>
         <input
+          type="number"
+          min="0"
+          step="0.01"
           value={cost}
           onChange={(e) => setCost(e.target.value)}
-          placeholder="e.g. R150 per person"
+          placeholder="e.g. 150"
           className={fieldClass}
         />
         <p className="mt-1 text-xs text-brand-ink/50">
-          When set, anyone who RSVPs sees the Chamber&apos;s banking details
-          right on the confirmation screen. Set these up first under
-          Payment Details.
+          When set, anyone who RSVPs sees the total for their whole party
+          (this amount × how many people they said are coming) plus the
+          Chamber&apos;s banking details, right on the confirmation screen.
+          Set those up first under Payment Details.
         </p>
       </div>
       <label className="flex items-center gap-2 text-sm font-medium text-brand-primary">

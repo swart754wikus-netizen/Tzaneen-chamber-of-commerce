@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getEvent, formatEventDate, type ChamberEvent } from "@/lib/events";
+import { getEvent, formatEventDate, formatRand, type ChamberEvent } from "@/lib/events";
 import { RsvpForm } from "@/components/events/RsvpForm";
 
 export function EventDetail({ eventId }: { eventId: string }) {
@@ -36,9 +36,9 @@ export function EventDetail({ eventId }: { eventId: string }) {
         {event.title}
       </h1>
       <p className="mt-4 text-brand-ink/80">{event.description}</p>
-      {event.cost && (
+      {!!event.costPerPerson && (
         <p className="mt-2 font-semibold text-brand-primary">
-          Cost: {event.cost}
+          Cost: R{formatRand(event.costPerPerson)} per person
         </p>
       )}
 

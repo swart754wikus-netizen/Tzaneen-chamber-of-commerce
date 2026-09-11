@@ -19,11 +19,12 @@ export type ChamberEvent = {
   description: string;
   photoUrl?: string;
   rsvpEnabled: boolean;
-  // Free-text cost, e.g. "R150 per person" — left blank means free. When
-  // set, the RSVP confirmation screen shows the Chamber's banking details
-  // (see lib/paymentDetails.ts, and RsvpForm's success state); when
-  // blank, nothing payment-related is shown.
-  cost?: string;
+  // Cost per person in Rand — left blank/0 means free. When set, the RSVP
+  // confirmation screen multiplies this by the headcount the attendee
+  // entered and shows the total plus the Chamber's banking details (see
+  // lib/paymentDetails.ts, and RsvpForm's success state); when blank,
+  // nothing payment-related is shown.
+  costPerPerson?: number;
 };
 
 export type RsvpInput = {
@@ -58,6 +59,12 @@ export async function getAllEvents(): Promise<ChamberEvent[]> {
 export function getUpcomingEvents(events: ChamberEvent[]): ChamberEvent[] {
   const now = new Date();
   return events.filter((event) => new Date(event.date) >= now);
+}
+
+// Whole-number amounts print without decimals (e.g. "150"), anything with
+// cents prints with exactly two (e.g. "150.50").
+export function formatRand(amount: number): string {
+  return Number.isInteger(amount) ? amount.toString() : amount.toFixed(2);
 }
 
 export function formatEventDate(isoDate: string): string {
