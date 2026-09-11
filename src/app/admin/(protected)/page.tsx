@@ -29,7 +29,7 @@ const cards = [
   {
     href: "/admin/documents",
     title: "Documents",
-    description: "Upload letters and the Constitution.",
+    description: "Upload letters (view-only) and the Constitution.",
   },
   {
     href: "/admin/payment-details",
