@@ -105,7 +105,7 @@ export default function AdminDocumentsPage() {
       <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
         <h2 className="font-bold text-brand-primary">Upload a Letter / Document</h2>
         <p className="mt-1 text-sm text-brand-ink/60">
-          Shown to visitors as view-only — no direct download link.
+          Shown to visitors on its own page, with an &quot;Open PDF&quot; button.
         </p>
         <form onSubmit={handleUpload} className="mt-4 space-y-3">
           <input
