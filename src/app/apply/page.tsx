@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { NeedsContent } from "@/components/ui/NeedsContent";
 import { MembershipApplicationForm } from "@/components/apply/MembershipApplicationForm";
 import { WhatsAppLink } from "@/components/layout/WhatsAppLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -35,23 +34,12 @@ export default function ApplyPage() {
 
           <div className="mt-8 rounded-2xl border-2 border-brand-primary/15 bg-brand-primary/5 p-6 text-sm text-brand-ink/70">
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-brand-primary">
-              What happens when this goes live
+              What happens next
             </p>
             <p>
-              When this form is submitted, it will be sent via email to the
-              admin once the site is live.
+              When this form is submitted, it goes straight to the Chamber
+              admin.
             </p>
-          </div>
-
-          <div className="mt-8">
-            <NeedsContent>
-              <p>
-                The old site&apos;s application form had at least one more
-                field beyond VAT Number that was cut off in the screenshots
-                you sent. Send a screenshot of the rest of that form and
-                I&apos;ll add the missing field(s) here.
-              </p>
-            </NeedsContent>
           </div>
         </div>
       </section>
